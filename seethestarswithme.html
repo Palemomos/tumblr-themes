@@ -1,0 +1,627 @@
+<!--
+"See the stars with me"
+by @palemona
+ver. 1.0 (30/07/2019)
+Thnx for using my theme
+-->
+
+<html>
+<head>
+  <title>{Title}</title>
+  <link rel="shortcut icon" href="{Favicon}">
+  <link rel="alternate" type="application/rss+xml" href="{RSS}">
+  <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+  {block:Description}
+  <meta name="description" content="{MetaDescription}" />
+  {/block:Description}
+  <meta name="if:Show custom link" content="1"/>
+  <meta name="text:Custom link" content="Hello world!"/>
+  <meta name="text:Custom linkname" content="Hello world!"/>
+  <meta name="if:Fixed nav" content="0"/>
+  <style>
+  
+  /******************GENERAL*****************/
+
+  @font-face {
+    font-family: 'pixelthin';
+    src: url('https://dl.dropboxusercontent.com/s/5rhx0odgk2ibhim/thin_pixel-7.ttf');
+  }
+
+  body {
+    background-image: linear-gradient(
+      rgba(0, 0, 0, .2),
+      rgba(0, 0, 0, .2)
+      ), url('https://66.media.tumblr.com/0cf29aed774e66ca048960dd3c705be6/tumblr_psaysi4fDX1qcwny6o1_1280.gif');
+      background-repeat: repeat-x;
+      background-attachment: fixed;
+      background-size: auto 100%;
+
+    }
+
+    h1 {
+      font-family: 'pixelthin';
+      color: white;
+      font-weight: normal;
+      font-size: 100px;
+      text-align: center;
+      text-transform: uppercase;
+      margin: 0;
+      padding: 0;
+    }
+
+
+    a{
+      color: #f2f2f2;
+      text-decoration: none;
+
+    }
+
+    a:hover {
+      color: #ffffff;
+    }
+
+    p {
+      margin: 0 !important;
+      padding: 0 !important;
+    }
+
+    ul li {
+      list-style-type: none;
+    }
+
+    /******************HEADER*****************/
+
+    header {
+      margin: 0 auto;
+      top: 0;
+      width: 100%;
+    }
+
+
+    #desc {
+      width: 860px;
+      margin: 0 auto;
+      background: #5f1b7c;
+      font-family: 'pixelthin';
+      font-size: 30px;
+      color: #f2f2f2;
+      border-style: double;
+      border-color: #f2f2f2;
+      padding: 5px 5px 5px 15px;
+      transition: 0.2s;
+
+    }
+
+    #footer {
+      font-family: 'pixelthin';
+      color: #f2f2f2;
+      text-align: right;
+
+    }
+
+    .sticky {
+      position: {block:IfFixedNav}
+      fixed;
+      {/block:IfFixedNav}
+      {block:IfNotFixedNav}
+      static;
+      {/block:IfNotFixedNav}
+      top: 0;
+      width: 100%;
+      margin: 0 auto;
+      {block:Permalink}
+      position: static;
+      {/block:Permalink}
+    }
+
+    .toplinks a {
+      color: #f2f2f2;
+      text-align: right;
+      padding: 1px 15px;
+      text-decoration: none;
+      font-size: 30px;
+
+    }
+
+    .toplinks {
+      display: flex;
+      justify-content: flex-end;
+
+    }
+
+    .triangle {
+      font-size: 15px;
+      opacity: 0;
+      animation: none;
+
+    }
+
+
+    .fecha:hover:before {
+      content: "▶";
+      animation-name: blink;
+      animation-duration: 1s;
+      animation-iteration-count: infinite;
+      font-size: 15px;
+    }
+
+    @keyframes blink{
+      0%{opacity: 0;}
+      50%{opacity: 0;}
+      100%{opacity: 1;}
+    }
+
+    #descontainer {
+      width: 100%;
+      padding-top: 30px;
+    }
+
+
+    /******************POSTS*****************/
+
+    .deschiki {
+      background: #6A5ACD;
+      font-family: 'pixelthin';
+      font-size: 20px;
+      color: #f2f2f2;
+      border-style: double;
+      border-color: #f2f2f2;
+      box-sizing: content-box;
+      padding: 5px 5px 5px 15px;
+      margin: 10px 0px 25px 0px;
+
+    }
+
+
+    #postes {
+      margin: 0 auto;
+      display: table;
+
+      page-break-inside: avoid;
+      break-inside: avoid;
+      width: 800px;
+      box-sizing: content-box;
+
+    }
+
+    #posts {
+
+      columns:2;
+      -webkit-column-break-inside: avoid;
+      page-break-inside: avoid;
+      break-inside: avoid;
+      {block:Permalink}
+      columns: 1;
+      {/block:Permalink}
+    }
+
+
+    .post img {
+      width: 400px;
+      {block:Permalink}
+      width: 100%;
+      {/block:Permalink}
+    }
+
+    .photoset img {
+      width: 300px;
+    }
+
+    .post {
+      width: 400px;
+      {block:Permalink}
+      width: 100%;
+      {/block:Permalink}
+    }
+
+    .imgfixer img {
+      width: 200px;
+      height: auto;
+      margin: 0;
+    }
+
+    .imgfixer {
+
+    }
+
+    .fixer {
+      display: inline-block;
+      height: 100%;
+      width: 100%;
+      font-family: 'pixelthin';
+      font-size: 25px;
+      color: #f2f2f2;
+
+    }
+
+    .textlayer{
+      box-shadow: inset 0 0 0 100vmax rgba(0, 0, 0, .2);
+      padding: 10px;
+      box-sizing: border-box;
+    }
+
+    .foot {
+
+    }
+
+    .fecha {
+      text-align: right;
+    }
+
+    .notas {
+      font-size: 20px;
+      color: #f2f2f2;
+      font-family: 'pixelthin';
+    }
+
+    .notas img {
+      width: 16px;
+
+    }
+
+    .bigger {
+      font-size: 30px;
+    }
+
+    .credits {
+      font-size: 25px;
+      opacity: 0.5;
+      bottom: 0;
+    }
+
+    .pagination {
+      text-align: right;
+      width: 200px;
+      margin: 0 auto;
+      font-size: 20px;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .triangle2:hover:before {
+      content: "▶";
+      animation-name: blink;
+      animation-duration: 1s;
+      animation-iteration-count: infinite;
+      font-size: 15px;
+      margin-left: 30px;
+    }
+
+    ::-webkit-scrollbar {
+      width: 10px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background-color: #5f1b7c;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: #6a5acd;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background: #8576e3;
+    }
+
+
+  </style>
+</head>
+
+
+
+<body>
+  <header>
+    <h1>{Title}</h1>
+  </header>
+
+
+  <script>
+  $(document).ready(function(){
+    $(".l1").hover(function(e) {
+      $(".a").css("animation",e.type === "mouseenter"?"blink 1s linear infinite":"none")
+    })
+
+    $(".l2").hover(function(e) {
+      $(".b").css("animation",e.type === "mouseenter"?"blink 1s linear infinite":"none")
+    })
+
+    $(".l3").hover(function(e) {
+      $(".c").css("animation",e.type === "mouseenter"?"blink 1s linear infinite":"none")
+    })
+
+    $(".l4").hover(function(e) {
+      $(".d").css("animation",e.type === "mouseenter"?"blink 1s linear infinite":"none")
+    })
+
+    $(".l5").hover(function(e) {
+      $(".e").css("animation",e.type === "mouseenter"?"blink 1s linear infinite":"none")
+    })
+
+    $(".l6").hover(function(e) {
+      $(".f").css("animation",e.type === "mouseenter"?"blink 1s linear infinite":"none")
+    })
+
+  });
+</script>
+<div id="descontainer">
+  <div id="desc">
+    {block:Description}
+    {Description}
+    {/block:Description}
+
+
+
+    <div class="toplinks">
+      <a class="l1" href="{BlogURL}"> <span class="a triangle">▶</span> Home</a>
+      <a class="l2" href="/archive"><span class="b triangle">▶</span> Archive</a>
+      <a class="l3" href="/ask"><span class="c triangle">▶</span> Ask</a>
+      {block:IfShowCustomLink}
+      <a class="l4" href="{text:Custom link}"> <span class="d triangle">▶</span> {text:Custom linkname}</a>
+      {/block:IfShowCustomLink}
+
+    </div>
+
+  </div>
+
+
+</div>
+
+<!--
+"See the stars with me"
+by @palemona
+ver. 1.0 (30/07/2019)
+Thnx for using my theme
+-->
+
+
+<script>
+window.onscroll = function() {myFunction()};
+
+var navbar = document.getElementById("descontainer");
+var sticky = navbar.offsetTop;
+
+function myFunction() {
+  if (window.pageYOffset >= sticky) {
+    navbar.classList.add("sticky")
+  } else {
+    navbar.classList.remove("sticky");
+  }
+}
+</script>
+
+
+<div id="postes">
+  <ul id="posts">
+    <!--texts-->
+    {block:Posts}{block:Text}
+    <li class="post text">
+      <div class="fixer">
+        <div class="textlayer">
+          {block:Title}
+          <span class="bigger"><a href="{Permalink}">{Title}</a></span>
+          {/block:Title}<div class="imgfixer">{Body}</div></div>
+          <div class="deschiki">
+
+            <div class="fecha">
+              <a href="{Permalink}" title="{ShortMonth} {DayOfMonth}{DayOfMonthSuffix} {Year}">
+                {TimeAgo} {block:NoteCount} {NoteCountWithLabel}  {/block:NoteCount}
+              </a>
+            </div>
+          </div>
+          <div class="notas">{block:PostNotes}{PostNotes} {/block:PostNotes}</div></div>
+        </li>
+        {/block:Text}
+
+        <!--photos-->
+        {block:Photo}
+        <li class="post photo">
+          <div class="fixer">
+            <a href="{Permalink}"><img src="{PhotoURL-500}" alt="{PhotoAlt}"/></a>
+
+            <div class="deschiki">
+              {block:Caption}
+              <div class="caption">{Caption}</div>
+              {/block:Caption}
+              <div class="fecha">
+                <a href="{Permalink}" title="{ShortMonth} {DayOfMonth}{DayOfMonthSuffix} {Year}">
+                  {TimeAgo} {block:NoteCount} {NoteCountWithLabel}  {/block:NoteCount}
+                </a>
+              </div>
+            </div>
+            <div class="notas">{block:PostNotes}{PostNotes} {/block:PostNotes}</div></div>
+          </li>
+          {/block:Photo}
+
+          <!--panorama-->
+          {block:Panorama}
+          <li class="post panorama">
+            <div class="fixer">
+              {LinkOpenTag}
+              <img src="{PhotoURL-Panorama}" alt="{PhotoAlt}"/>
+              {LinkCloseTag}
+              <div class="deschiki">
+                {block:Caption}
+                <div class="caption">{Caption}</div>
+                {/block:Caption}
+                <div class="fecha">
+                  <a href="{Permalink}" title="{ShortMonth} {DayOfMonth}{DayOfMonthSuffix} {Year}">
+                    {TimeAgo} {block:NoteCount} {NoteCountWithLabel}  {/block:NoteCount}
+                  </a>
+                </div>
+              </div>
+              <div class="notas">{block:PostNotes}{PostNotes} {/block:PostNotes}</div>
+            </div>
+          </li>
+          {/block:Panorama}
+
+
+          <!--photoset-->
+          {block:Photoset}
+          <li class="post photoset">
+            <div class="fixer">
+              {Photoset}
+              <div class="deschiki">
+                {block:Caption}
+                <div class="caption">{Caption}</div>
+                {/block:Caption}
+                <div class="fecha">
+                  <a href="{Permalink}" title="{ShortMonth} {DayOfMonth}{DayOfMonthSuffix} {Year}">
+                    {TimeAgo} {block:NoteCount} {NoteCountWithLabel}  {/block:NoteCount}
+                  </a>
+                </div>
+              </div>
+              <div class="notas">{block:PostNotes}{PostNotes} {/block:PostNotes}</div>
+            </div>
+          </li>
+          {/block:Photoset}
+
+          <!--quote-->
+          {block:Quote}
+          <li class="post quote">
+            <div class="fixer">
+              <div class="deschiki">
+                <span class="bigger">"{Quote}"</span>
+
+                {block:Source}
+                <div class="source">{Source}</div>
+                {/block:Source}
+                <div class="fecha">
+                  <a href="{Permalink}" title="{ShortMonth} {DayOfMonth}{DayOfMonthSuffix} {Year}">
+                    {TimeAgo} {block:NoteCount} {NoteCountWithLabel}  {/block:NoteCount}
+                  </a>
+                </div>
+              </div>
+              <div class="notas">{block:PostNotes}{PostNotes} {/block:PostNotes}</div>
+            </div>
+          </li>
+          {/block:Quote}
+
+          <!--link-->
+          {block:Link}
+          <li class="post link">
+            <div class="fixer">
+              {block:Description}
+              <div class="description">{Description}</div>
+              {/block:Description}
+
+              <div class="deschiki">
+                <span class="bigger"><a href="{URL}" class="link" {Target}>{Name}</a></span>
+                <div class="fecha">
+                  <a href="{Permalink}" title="{ShortMonth} {DayOfMonth}{DayOfMonthSuffix} {Year}">
+                    {TimeAgo} {block:NoteCount} {NoteCountWithLabel}  {/block:NoteCount}
+                  </a>
+                </div>
+              </div>
+              <div class="notas">{block:PostNotes}{PostNotes} {/block:PostNotes}</div>
+            </div>
+          </li>
+          {/block:Link}
+
+
+          <!--chat-->
+          {block:Chat}
+          <li class="post chat">
+            <div class="fixer">
+              <div class="deschiki">
+                {block:Title}
+                <h3><a href="{Permalink}">{Title}</a></h3>
+                {/block:Title}
+
+                <ul class="chat">
+                  {block:Lines}
+                  <li class="{Alt} user_{UserNumber}">
+                    {block:Label}
+                    <span class="label">{Label}</span>
+                    {/block:Label}{Line}
+                  </li>
+                  {/block:Lines}
+                </ul>
+                <div class="fecha">
+                  <a href="{Permalink}" title="{ShortMonth} {DayOfMonth}{DayOfMonthSuffix} {Year}">
+                    {TimeAgo} {block:NoteCount} {NoteCountWithLabel}  {/block:NoteCount}
+                  </a>
+                </div>
+              </div>
+              <div class="notas">{block:PostNotes}{PostNotes} {/block:PostNotes}</div>
+            </div>
+          </li>
+          {/block:Chat}
+
+
+          <!--video-->
+          {block:Video}
+          <li class="post video">
+            <div class="fixer">
+              {Video-400}
+              <div class="deschiki">
+                {block:Caption}
+                <div class="caption">{Caption}</div>
+                {/block:Caption}
+                <div class="fecha">
+                  <a href="{Permalink}" title="{ShortMonth} {DayOfMonth}{DayOfMonthSuffix} {Year}">
+                    {TimeAgo} {block:NoteCount} {NoteCountWithLabel}  {/block:NoteCount}
+                  </a>
+                </div>
+              </div>
+              <div class="notas">{block:PostNotes}{PostNotes} {/block:PostNotes}</div>
+            </div>
+          </li>
+          {/block:Video}
+
+          <!--audio-->
+          {block:Audio}
+          <li class="post audio">
+            <div class="fixer">
+              {AudioEmbed-400}
+
+              <div class="deschiki">
+                {block:Caption}
+                <div class="caption">{Caption}</div>
+                {/block:Caption}
+                <div class="fecha">
+                  <a href="{Permalink}" title="{ShortMonth} {DayOfMonth}{DayOfMonthSuffix} {Year}">
+                    {TimeAgo} {block:NoteCount} {NoteCountWithLabel}  {/block:NoteCount}
+                  </a>
+                </div>
+              </div>
+              <div class="notas">{block:PostNotes}{PostNotes} {/block:PostNotes}</div>
+            </div>
+          </li>
+          {/block:Audio}
+          {/block:Posts}
+        </ul>
+      </div>
+
+
+      <div id="footer">
+        {block:Pagination}
+        <div class="pagination textlayer">
+          <div style="width: 100px; text-align: right;">
+
+
+            {block:PreviousPage}
+            <a class="triangle2" href="{PreviousPage}"> Previous </a>
+            {/block:PreviousPage}
+          </div>
+          <div>
+            {block:NextPage}
+            <a class="triangle2"  href="{NextPage}"> Next</a>
+            {/block:NextPage}
+
+          </div>
+
+        </div>
+        {/block:Pagination}
+
+        <br><span class="credits">⋆ theme by <a href="https://palemona.tumblr.com/">@palemona | 2019 ⋆</a></span>
+
+
+      </div>
+    </body>
+    </html>
+    <!--
+    "See the stars with me"
+    by @palemona
+    ver. 1.0 (30/07/2019)
+    Thnx for using my theme
+    -->
