@@ -10,9 +10,7 @@ Thnx for using my theme
         <link rel="shortcut icon" href="{Favicon}">
         <link rel="alternate" type="application/rss+xml" href="{RSS}">
         <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
-        {block:Description}
-            <meta name="description" content="{MetaDescription}" />
-        {/block:Description}
+        <meta name="description" content="{MetaDescription}" />
         <meta name="if:Show custom link" content="1"/>
         <meta name="text:Custom link" content="Hello world!"/>
         <meta name="text:Custom linkname" content="Hello world!"/>
@@ -397,12 +395,11 @@ Thnx for using my theme
         </script>
         <div id="descontainer">
         <div id="desc">
-        {block:Description}
-           {Description}
-        {/block:Description}
+          {block:ShowDescription}
+               {Description}
+          {/block:ShowDescription}
         
-
-       
+      
         <div class="toplinks">
              <a class="l1" href="{BlogURL}"> <span class="a triangle">▶</span> Home</a>
   <a class="l2" href="/archive"><span class="b triangle">▶</span> Archive</a>
