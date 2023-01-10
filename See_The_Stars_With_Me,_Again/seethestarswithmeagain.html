@@ -79,6 +79,7 @@ Support me on Ko-fi ? https://ko-fi.com/palemomos
     <meta name="text:Player" content="Crono" />
     <meta name="text:Attribute" content="lightning" />
     <meta name="text:Level" content="27" />
+    <meta name="text:Gold" content="500" />
     <meta name="text:HP" content="95/99" />
     <meta name="text:MP" content="10/10" />
     <meta name="text:Equipment" content="Crimson Blade,	Nova Armor, Hide cap, Schala's amulet" />
@@ -196,6 +197,9 @@ $(document).ready(function () {
     const optionsDate = { weekday: 'short', year: 'numeric', month: 'short', day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit', timeZoneName: 'short'};
 
     date_box.innerHTML += date.toLocaleDateString(undefined, optionsDate);
+
+    var gold_box = document.getElementById("gold-qty");
+    gold_box.innerHTML += "{text:Gold}"+"G";
     
     var raw_equipment = "{text:Equipment}";
     var equipment = raw_equipment.split(',');
@@ -1640,7 +1644,7 @@ display: grid;
                 </div>
                 <div class="ui-date">
                     <p id="full-date"></p>
-                    <p>500G</p>
+                    <p id="gold-qty"></p>
                 </div>
             </div>
             <div class="ui-profile">
@@ -1696,7 +1700,7 @@ display: grid;
     {/block:IfShowWindowImg}
     <div class="message">
         <p>
-        <b>{Title}:</b><br/>
+        <b>{text:Player}:</b><br/>
         {text:Window Text}</p>
         <ul id="links_box">
         </ul>
