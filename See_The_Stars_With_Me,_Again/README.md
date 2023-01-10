@@ -12,7 +12,7 @@ A theme made for Tumblr blogs. Developed by Palemomos from [Themes By Pale (or P
 
 ### Install with source code
 
-1. To install the theme using the source code, go to [this link](), you'll be redirected to a page containing the source code.
+1. To install the theme using the source code, go to [this link](https://gitlab.com/Palemona/tumblr-themes/-/raw/master/See_The_Stars_With_Me,_Again/seethestarswithmeagain.html), you'll be redirected to a page containing the source code.
 
 2. Copy ALL the content of the page. Use **CTRL+A** or **COMMAND+A** to select all the text.
 
@@ -104,10 +104,12 @@ The theme comes with the following options in the customization panel.
 
 - **Typing effect** : Refers if the theme will display a start animation before showing posts. The animation will only play on first page of the Home Page. This option also enables an option to skip the animation.
 
+
 <figure style="width: 500px; text-align: center;">
     <img src="imgs/retro.gif" />
     <figcaption>Preview of the animation</figcaption>
 </figure>
+
 
 - **Show window image** : Refers if the image uploaded on **Custom dialogue image** will be rendered or not.
 
