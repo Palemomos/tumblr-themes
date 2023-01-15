@@ -2,7 +2,7 @@
 
 "Glazed" 
 Theme by palemomos [themesbypale.tumblr.com]
-ver. 1.1 (Nov/20/22)
+ver. 1.2 (Jan/13/2023)
 Please don't remove the credits.
 
 ★ Icons: Bootstrap Icons https://icons.getbootstrap.com/
@@ -12,6 +12,7 @@ Please don't remove the credits.
 ★ Custom audio controls: by @annasthms
 ★ Fonts: all fonts are from Google Fonts
 ★ Custom like & reblog buttons tutorial: @shythemes
+★ Basecode for unnested captions by @annasthms
 ★ Loading animation: https://loading.io/css/
 
 Note: default images are only for demo purposes and belong to their respective authors.
@@ -27,13 +28,16 @@ Support me on Ko-fi ? https://ko-fi.com/palemomos
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
-    <title>{Title}{block:TagPage} ({lang:Posts tagged Tag}){/block:TagPage}{block:SearchPage} ({lang:Search results for SearchQuery}){/block:SearchPage}{block:PermalinkPage}{block:PostSummary} — {PostSummary}{/block:PostSummary}{/block:PermalinkPage}</title>
+    <title>{Title}
+        {block:PermalinkPage}{block:PostSummary} | {PostSummary} {/block:PostSummary}{/block:PermalinkPage} 
+        {block:TagPage} | {lang:Posts tagged Tag}{/block:TagPage}
+        {block:DayPage} | {Month} {DayOfMonth}, {Year} {/block:DayPage}
+        {block:SearchPage} | {lang:Search results for SearchQuery}{/block:SearchPage}</title>
     <link rel="shortcut icon" href="{Favicon}">
     <link rel="alternate" type="application/rss+xml" href="{RSS}">
     <link href="https://static.tumblr.com/0podkko/xIbplezmo/modified_photosets.css" rel="stylesheet">
     <script src="https://static.tumblr.com/0podkko/jfMplm3f8/modified_photosets.js"></script>
-    <script
-          src="https://code.jquery.com/jquery-3.6.0.slim.min.js"
+    <script src="https://code.jquery.com/jquery-3.6.0.slim.min.js"
           integrity="sha256-u7e5khyithlIdTpu22PHhENmPcRdFiHRjhAuHcs05RI="
           crossorigin="anonymous"></script>
     <script src="//npf-images-v3.github.io/script.js"></script>
@@ -47,9 +51,12 @@ Support me on Ko-fi ? https://ko-fi.com/palemomos
         --NPF-Image-Spacing:0px;
     }
     </style>
+
     <!--Variables-->
     <!--Texts and links--->
-    <meta name="description" content="{MetaDescription}">
+    {block:Description}
+    <meta name="description" content="{MetaDescription}" />
+    {/block:Description}
     
     <meta name="text:Link 1" content="Link 1">
     <meta name="text:Link 1 URL" content="">
@@ -84,7 +91,6 @@ Support me on Ko-fi ? https://ko-fi.com/palemomos
     <meta name="text:Facebook URL" content="">
     <meta name="text:Spotify URL" content="">
     <meta name="text:Tags List" content="">
-    <meta name="if:Show Following" content="1"/>
     <meta name="text:Extra Text" content="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat">
     
     <!--Colors-->
@@ -136,168 +142,11 @@ Support me on Ko-fi ? https://ko-fi.com/palemomos
     <meta name="if:Background Repeat" content="0" />
     <meta name="if:Show Tags" content="0"/>
     <meta name="if:Hide Captions" content="0"/>
-    <meta name="if:Show About Section" content="1" />
+    <meta name="if:Show Following" content="0"/>
+    <meta name="if:Show About Section" content="0" />
     <meta name="if:Hide Loading Screen" content="1" />
-
-<script>
-$(document).ready(function(){
-    //cssphotosets
-    initPhotosets();
+    <meta name="if:Drop Posts Animation" content="0" />
     
-    //transparent accent color
-    //credits: https://stackoverflow.com/questions/21646738/convert-hex-to-rgba
-    var c;
-    var hex = '{color:Accent Color 2}';
-    c= hex.substring(1).split('');
-    if(c.length== 3){
-        c= [c[0], c[0], c[1], c[1], c[2], c[2]];
-    }
-    c= '0x'+c.join('');
-    var rgba = 'rgba('+[(c>>16)&255, (c>>8)&255, c&255].join(',')+',0.6)';
-    document.documentElement.style.setProperty('--accent-color-2', rgba);
-    
-    //onload loading 
-   
-    if(window.location.href.indexOf(".com/customize") === -1) {
-         {block:IfNotHideLoadingScreen}
-        $(window).on('load', function () {
-            $("#loading").css("opacity", 0); 
-            setTimeout(function(){ 
-                  $('#loading').hide();
-              }, 500);
-        }); 
-        {/block:IfNotHideLoadingScreen}
-    } else {
-        $("#loading").css("display", "none"); 
-    }
-    
-    
-    //apply mode layout
-    if(window.screen.width > 768){
-            gridderyV2(".post", "--Post-Columns");
-    }
-    
-    //show captions on permalink page
-    {block:PermalinkPage}
-    $(".caption").css("display", "block");
-    {/block:PermalinkPage}
-    
-    //toggle controls
-    $('.controls_tumblr').click(function(){
-        $(".iframe-controls--desktop").toggle( "slow" )
-    });
-    
-    //mobile nav
-    var showMenu = false;
-    $('#btn_open_menu_mobile, #btn_close_menu').click(function(){
-        showMenu = !showMenu;
-        if(showMenu){
-            $(".navigation").css({"visibility":"visible","opacity":"1","z-index":"10" });        
-            $(".about_content").css("opacity", "0");
-        } else {
-            $(".navigation").css({"visibility":"hiden","opacity":"0","z-index":"-1" });
-            $(".about_content").css("opacity", "1");
-        }   
-    });
-    
-    //about section
-    {block:ifShowAboutSection}
-    var showModal = false;
-    $('#open_modal, #close_modal').click(function () {
-        showModal = !showModal;
-        if (showModal) {
-            $("#modal_about").css({"visibility":"visible","opacity":"1","z-index":"20"});
-            $(".about_info").css({"transform":"translateY(0px)","opacity":"1"});
-            $("#posts_list, .about").css("opacity",0);
-            setTimeout(function(){
-                $("html").css("overflow", "hidden");
-            }, 1000);
-        } else {
-            $("html").css("overflow", "auto");
-            $("#modal_about").css({"visibility":"hidden","opacity":"0","z-index":"-2"});
-            $(".about_info").css({"transform":"translateY(-50vh)","opacity":"0"});
-            $("#posts_list, .about").css("opacity",1);
-        }
-    });
-    //change sections
-    $('.about_link').click(function () {
-        let clas = $(this).attr("data-section");
-        $(".section").removeClass("active");
-        $(clas).addClass("active");
-    });
-    {/block:ifShowAboutSection}    
-    
-    //print tags about modal
-    {block:ifTagsList}
-    let matrix = [{text:Tags List}];
-    for(let i=0; i<matrix.length; i++){
-        $(".tags_content").append('<div class="tags_group"></div>');
-        for(let j=0; j<matrix[i].length; j++){
-            if(j===0){
-                $(".tags_group").eq(i).append('<h3>'+matrix[i][0]+'</h3><div class="tags"></div>');
-            } else {
-                let parsed_tag = matrix[i][j].replace(" ", "%20");
-                $(".tags_group .tags").eq(i).append('<a href="/tagged/'+parsed_tag+'" taget="_blank">'+matrix[i][j]+'</a>');
-            }
-        }
-    }
-    {/block:ifTagsList}
-    
-    //custom audio
-    customAudio({
-        	post: ".post",
-        	default: false,
-        	pauseAll: true,
-        	playButton: '<i class="bi bi-play-circle"></i>',
-        	pauseButton: '<i class="bi bi-pause-circle"></i>',
-        	errorIcon: '<i class="bi bi-x-circle"></i>',
-        	hideInfoIfError: true,
-        	callAfterLoad: null
-        });
-
-    //dark mode 
-    var theme = localStorage.getItem('theme') ? localStorage.getItem('theme') : "light";
-    document.documentElement.setAttribute('data-theme', theme);
-    if (theme === 'dark') {
-        $(".btn_dark_mode").html('<i class="bi bi-sun"></i>');
-    } else {
-        $(".btn_dark_mode").html('<i class="bi bi-moon-stars"></i>');
-    }
-    $('.btn_dark_mode, #btn_mode_mobile').click(function(){
-            if (theme === 'dark') {
-                $(".btn_dark_mode, #btn_mode_mobile").html('<i class="bi bi-moon-stars"></i>');
-                localStorage.setItem('theme', 'light'); 
-                document.documentElement.setAttribute('data-theme', 'light');
-                theme = "light";
-            } else {
-                $(".btn_dark_mode, #btn_mode_mobile").html('<i class="bi bi-sun"></i>');
-                localStorage.setItem('theme', 'dark'); 
-                document.documentElement.setAttribute('data-theme', 'dark');
-                theme = "dark";
-            }
-    });
-    
-    //scroll to top button
-    function scrollFunction() {
-        if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {   
-            $('#top_button').css("transform", "translateY(0px)");
-        } else {
-            $('#top_button').css("transform", "translateY(200px)");
-        }
-    }
-
-    $('#top_button').click(function(){ 
-        document.body.scrollTop = 0;
-        document.documentElement.scrollTop = 0;
-    });
-    
-    $(window).on("scroll", function() {
-        scrollFunction();
-    });
-    
-});
-</script>
-
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Annie+Use+Your+Telescope&family=Coming+Soon&family=Indie+Flower&family=Mali:wght@300;400&family=Patrick+Hand+SC&family=Nanum+Gothic+Coding&family=Noto+Sans+JP&family=Noto+Serif+JP&family=Short+Stack&display=swap');
 
@@ -381,7 +230,7 @@ body {
     {block:IfBackgroundRepeat}
     background-size: auto;
     background-repeat: repeat;
-    {block:IfBackgroundRepeat}
+    {/block:IfBackgroundRepeat}
     letter-spacing: 1px;
     line-height: 1.5;
     font-size: {select:Font Size};
@@ -408,7 +257,7 @@ header, main, nav, footer, .about {
     backdrop-filter: blur(10px);
     {block:IfHideLoadingScreen}
     display: none;
-    {block:IfHideLoadingScreen}
+    {/block:IfHideLoadingScreen}
 }
 
 .lds-dual-ring {
@@ -619,7 +468,9 @@ header {
     padding: 0rem 2rem 2rem 2rem;
     margin: 50px auto;
     transition: 0.5s all ease;
-    animation: dropPosts 1s linear 1s 1
+    {block:IfDropPostsAnimation}
+    animation: dropPosts 1s linear 1s 1;
+    {/block:IfDropPostsAnimation}
 }
 
 @keyframes dropPosts {
@@ -1922,7 +1773,7 @@ progress::-webkit-progress-bar {
 
 <body>
     <div id="loading">
-    <div class="lds-dual-ring"></div>
+        <div class="lds-dual-ring"></div>
     </div> 
     <header>   
          <button type="button" class="btn_dark_mode btn_dark_mode_mobile"><i class="bi bi-moon-stars"></i></button>
@@ -2520,6 +2371,155 @@ progress::-webkit-progress-bar {
 	C2356.8828,203.1455,2354.8281,179.4941,2350.2393,158.1748z"/>
 </svg>
 </a>
+<script>
+$(document).ready(function(){
+    //cssphotosets
+    initPhotosets();
+    //transparent accent color
+    //credits: https://stackoverflow.com/questions/21646738/convert-hex-to-rgba
+    var c;
+    var hex = '{color:Accent Color 2}';
+    c= hex.substring(1).split('');
+    if(c.length== 3){
+        c= [c[0], c[0], c[1], c[1], c[2], c[2]];
+    }
+    c= '0x'+c.join('');
+    var rgba = 'rgba('+[(c>>16)&255, (c>>8)&255, c&255].join(',')+',0.6)';
+    document.documentElement.style.setProperty('--accent-color-2', rgba);
+    
+    //apply mode layout
+    if(window.screen.width > 768){
+            gridderyV2(".post", "--Post-Columns");
+    }
+    
+    //show captions on permalink page
+    {block:PermalinkPage}
+    $(".caption").css("display", "block");
+    {/block:PermalinkPage}
+    
+    //toggle controls
+    $('.controls_tumblr').click(function(){
+        $(".iframe-controls--desktop").toggle( "slow" )
+    });
+    
+    //mobile nav
+    var showMenu = false;
+    $('#btn_open_menu_mobile, #btn_close_menu').click(function(){
+        showMenu = !showMenu;
+        if(showMenu){
+            $(".navigation").css({"visibility":"visible","opacity":"1","z-index":"10" });        
+            $(".about_content").css("opacity", "0");
+        } else {
+            $(".navigation").css({"visibility":"hiden","opacity":"0","z-index":"-1" });
+            $(".about_content").css("opacity", "1");
+        }   
+    });
+    
+    //about section
+    {block:ifShowAboutSection}
+    var showModal = false;
+    $('#open_modal, #close_modal').click(function () {
+        showModal = !showModal;
+        if (showModal) {
+            $("#modal_about").css({"visibility":"visible","opacity":"1","z-index":"20"});
+            $(".about_info").css({"transform":"translateY(0px)","opacity":"1"});
+            $("#posts_list, .about").css("opacity",0);
+            setTimeout(function(){
+                $("html").css("overflow", "hidden");
+            }, 1000);
+        } else {
+            $("html").css("overflow", "auto");
+            $("#modal_about").css({"visibility":"hidden","opacity":"0","z-index":"-2"});
+            $(".about_info").css({"transform":"translateY(-50vh)","opacity":"0"});
+            $("#posts_list, .about").css("opacity",1);
+        }
+    });
+    //change sections
+    $('.about_link').click(function () {
+        let clas = $(this).attr("data-section");
+        $(".section").removeClass("active");
+        $(clas).addClass("active");
+    });
+    {/block:ifShowAboutSection}    
+    
+    //print tags about modal
+    {block:ifTagsList}
+    let matrix = [{text:Tags List}];
+    for(let i=0; i<matrix.length; i++){
+        $(".tags_content").append('<div class="tags_group"></div>');
+        for(let j=0; j<matrix[i].length; j++){
+            if(j===0){
+                $(".tags_group").eq(i).append('<h3>'+matrix[i][0]+'</h3><div class="tags"></div>');
+            } else {
+                let parsed_tag = matrix[i][j].replace(" ", "%20");
+                $(".tags_group .tags").eq(i).append('<a href="/tagged/'+parsed_tag+'" taget="_blank">'+matrix[i][j]+'</a>');
+            }
+        }
+    }
+    {/block:ifTagsList}
+    
+    //custom audio
+    customAudio({
+        	post: ".post",
+        	default: false,
+        	pauseAll: true,
+        	playButton: '<i class="bi bi-play-circle"></i>',
+        	pauseButton: '<i class="bi bi-pause-circle"></i>',
+        	errorIcon: '<i class="bi bi-x-circle"></i>',
+        	hideInfoIfError: true,
+        	callAfterLoad: null
+        });
+
+    //dark mode 
+    var theme = localStorage.getItem('theme') ? localStorage.getItem('theme') : "light";
+    document.documentElement.setAttribute('data-theme', theme);
+    if (theme === 'dark') {
+        $(".btn_dark_mode").html('<i class="bi bi-sun"></i>');
+    } else {
+        $(".btn_dark_mode").html('<i class="bi bi-moon-stars"></i>');
+    }
+    $('.btn_dark_mode, #btn_mode_mobile').click(function(){
+            if (theme === 'dark') {
+                $(".btn_dark_mode, #btn_mode_mobile").html('<i class="bi bi-moon-stars"></i>');
+                localStorage.setItem('theme', 'light'); 
+                document.documentElement.setAttribute('data-theme', 'light');
+                theme = "light";
+            } else {
+                $(".btn_dark_mode, #btn_mode_mobile").html('<i class="bi bi-sun"></i>');
+                localStorage.setItem('theme', 'dark'); 
+                document.documentElement.setAttribute('data-theme', 'dark');
+                theme = "dark";
+            }
+    });
+    
+    //scroll to top button
+    function scrollFunction() {
+        if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {   
+            $('#top_button').css("transform", "translateY(0px)");
+        } else {
+            $('#top_button').css("transform", "translateY(200px)");
+        }
+    }
+
+    $('#top_button').click(function(){ 
+        document.body.scrollTop = 0;
+        document.documentElement.scrollTop = 0;
+    });
+    
+    $(window).on("scroll", function() {
+        scrollFunction();
+    });
+});
+
+//onload loading 
+if(window.location.href.indexOf("customize") === -1) {
+    $(window).on('load', function () {
+        $("#loading").css("display", "none"); 
+    }); 
+} else {
+    $("#loading").css("display", "none"); 
+}
+</script>
 
 </body>
 </html>
