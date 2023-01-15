@@ -2,7 +2,7 @@
 
 "Social Media" 
 by @palemomos [themesbypale.tumblr.com]
-ver. 1.2 (dec/28/2022)
+ver. 1.3 (Jan/13/2023)
 Thanks for using my theme!
 Please don't remove the credits.
 
@@ -10,7 +10,9 @@ Please don't remove the credits.
 ★ CSS Photosets: by @annasthms & @eggdesign https://annasthms.github.io/photosets/
 ★ Infinite Scroll: https://infinite-scroll.com/
 ★ NPF images: fix v3.0 by @glenthemes [2021] ? git.io/JRBt7
-★ Basecode and custom audio controls: by @annasthms
+★ Custom audio controls: by @annasthms
+★ Custom like & reblog buttons tutorial: @shythemes
+★ Basecode for unnested captions by @annasthms
 ★ Fonts: rainyhearts and levi are from dafont.com and belong to their respective authors, all the other fonts are from Google Fonts
 ★ Loading animation: https://loading.io/css/
 
@@ -26,31 +28,36 @@ Support me on Ko-fi ? https://ko-fi.com/palemomos
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>{block:PostSummary}{PostSummary} | {/block:PostSummary}{Title}</title>
-  <link rel="shortcut icon" href="{Favicon}">
-  <link rel="alternate" type="application/rss+xml" href="{RSS}">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
-  <title>Instagram</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-
-  <link href="https://static.tumblr.com/0podkko/xIbplezmo/modified_photosets.css" rel="stylesheet">
-  <script src="https://static.tumblr.com/0podkko/jfMplm3f8/modified_photosets.js"></script>
-  <script src="https://unpkg.com/infinite-scroll@4/dist/infinite-scroll.pkgd.js"></script>
-  <script src="https://static.tumblr.com/0podkko/aZZqe4033/customaudio.min.js"></script>
-<script src="//npf-images-v3.github.io/script.js"></script>
-<link rel="stylesheet" href="//npf-images-v3.github.io/recon.css">
-<style tmblr-npf>
-:root {
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{Title}
+        {block:PermalinkPage}{block:PostSummary} | {PostSummary} {/block:PostSummary}{/block:PermalinkPage} 
+        {block:TagPage} | {lang:Posts tagged Tag}{/block:TagPage}
+        {block:DayPage} | {Month} {DayOfMonth}, {Year} {/block:DayPage}
+        {block:SearchPage} | {lang:Search results for SearchQuery}{/block:SearchPage}</title>
+    <link rel="shortcut icon" href="{Favicon}">
+    <link rel="alternate" type="application/rss+xml" href="{RSS}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <link href="https://static.tumblr.com/0podkko/xIbplezmo/modified_photosets.css" rel="stylesheet">
+    <script src="https://static.tumblr.com/0podkko/jfMplm3f8/modified_photosets.js"></script>
+    <script src="https://unpkg.com/infinite-scroll@4/dist/infinite-scroll.pkgd.js"></script>
+    <script src="https://static.tumblr.com/0podkko/aZZqe4033/customaudio.min.js"></script>
+    <script src="//npf-images-v3.github.io/script.js"></script>
+    <link rel="stylesheet" href="//npf-images-v3.github.io/recon.css">
+    <style tmblr-npf>
+    :root {
     --NPF-Caption-Spacing:1rem;
     --NPF-Image-Spacing:0px;
-}
-</style>
+    }
+    </style>
 
-<!--Variables-->
-<!--Texts and links--->
-    <meta name="description" content="{MetaDescription}">
+    <!--Variables-->
+    <!--Texts and links--->
+    {block:Description}
+    <meta name="description" content="{MetaDescription}" />
+    {/block:Description}
+
     <meta name="text:Ocupation" content="Your ocupation" />
     <meta name="text:Link 1" content="Link 1">
     <meta name="text:Link 1 URL" content="">
@@ -102,330 +109,7 @@ Support me on Ko-fi ? https://ko-fi.com/palemomos
     <meta name="select:Underline Style" content="solid" />
     <meta name="select:Underline Style" content="dotted" />
     
-<script>
-$(document).ready(function(){
-    initPhotosets();
-    if(window.location.href.indexOf(".com/customize") === -1) {
-         {block:IfNotHideLoadingScreen}
-        $(window).on('load', function () {
-            $("#loading").css("opacity", 0); 
-            setTimeout(function(){ 
-                  $('#loading').hide();
-              }, 500);
-        }); 
-        {/block:IfNotHideLoadingScreen}
-    } else {
-        $("#loading").css("display", "none"); 
-    }
-    
-    //adjust image on permalink 
-    {block:PermalinkPage}
-       $(".perma-username").html("{Title}");
-       var photo = $(".lightbox-perma").find(".post-image img");
-            let photo_width = parseInt(photo.css("width"));
-            let photo_height = parseInt(photo.css("height"));
-            let result = photo_width / photo_height;
-            if(photo_width > photo_height || (result < 1.3 && result > 0.93  )
-){
-                photo.css("width", "100%");
-            } else {
-                if(window.screen.width > 768){
-                    photo.css("height", "100%");
-                } else {
-                    photo.css("width", "100%");
-                }
-            }
-            
-        if(parseInt($(".post-content").css("height")) < 500){
-            $(".thepost").css("justify-content", "center") ;
-        } else {
-             $(".thepost").css("justify-content", "start") ;
-        }
-        
-        //remove controls functionality on custom pages
-        $(".lightbox-go-permalink a").removeAttr( "href" );
-        if(window.location.href.indexOf("/post/") === -1) {
-               $(".reblog").removeAttr( "href" );
-               $(".like").removeAttr( "href" );
-               $(".lightbox-reblog, .lightbox-like").removeAttr( "data-title" );
-               $(".controls svg").hover(function(){
-                  $(this).css("fill", "rgb(133,133,133)");
-                  }, function(){
-                  $(this).css("fill", "rgb(133,133,133)");
-                });
-        }
-    {/block:PermalinkPage}
-    let width_post = $(".post").css("width");
-    sessionStorage.setItem('width_post', width_post);
-   
-   
-    $(".search").click(function(){
-        $(".inputsearch").toggleClass("search-active");
-      });
-      
-    function doAll() {
-      customAudio({
-        	post: ".post",
-        	default: false,
-        	pauseAll: true,
-        	playButton: '<i class="bi bi-play-circle"></i>',
-        	pauseButton: '<i class="bi bi-pause-circle"></i>',
-        	errorIcon: '<i class="bi bi-x-circle"></i>',
-        	hideInfoIfError: true,
-        	callAfterLoad: null
-        });
-      
-      {block:HomePage}
-      let width = sessionStorage.getItem('width_post');
-      $(".post").css("height", width);
-      $(".like_post").css("height", width);
-        if (width === "0px") {
-         $(".post").css("height", "200px");
-      }
-      {/block:HomePage}
-      {block:SearchPage}
-      var width = $(".post").css("width");
-      $(".post").css("height", width);
-      $(".like_post").css("height", width);
-      {/block:SearchPage}
-      {block:TagPage}
-      var width = $(".post").css("width");
-      $(".post").css("height", width);
-      $(".like_post").css("height", width);
-      {/block:TagPage}
-     
-      var master_id = 0;
-      var post_type ="";
-      //show lightbox
-      $(".post-overlay").click(function() {
-         master_id = $(this).attr("data-id");
-         post_type = $(this).attr("data-type"); 
-         post_link = $(this).attr("data-link");
-         $(".backdrop").attr("data-id",master_id);
-        $(".content").addClass("animation");
-          $(".content").removeClass("byeanimation");
-          $(".lightbox").css("display", "flex");
-          $(".backdrop").css("display", "flex");
-            $(".backdrop > .closelightbox").css("display","flex");
-        $(".thepost").addClass(post_type);
-        //$(".thepost").attr("id",master_id);
-       // $(".thepost").attr("data-link",post_link);
-        $(".thepost .text-gradient").css("display", "none");
-      });
-      //show following
-      $("#following").click(function() {
-        $(".following-container").addClass("animation");
-          $(".following-container").removeClass("byeanimation");
-          $(".lightbox-follows").css("display", "flex");
-          $(".backdrop").css("display", "flex");
-          $(".backdrop > .closelightbox").css("display","none");
-      });
-      //close lightbox and return like to original position
-      $(".closelightbox").click(function() {
-          {block:HomePage}
-          $(".content").removeClass("animation");
-          $(".content").addClass("byeanimation");
-          {/block:HomePage}
-          {block:SearchPage}
-          $(".content").removeClass("animation");
-          $(".content").addClass("byeanimation");
-          {/block:SearchPage}
-          {block:TagPage}
-          $(".content").removeClass("animation");
-          $(".content").addClass("byeanimation");
-          {/block:TagPage}
-           $(".following-container").removeClass("animation");
-          $(".following-container").addClass("byeanimation");
-          var move_like = $(".lightbox-like").find(".like");
-          move_like.appendTo($("#"+master_id).find(".post-like"));
-          setTimeout(function(){ 
-              $(".lightbox").css("display", "none"); 
-              $(".lightbox-follows").css("display", "none"); 
-              $(".backdrop").css("display", "none"); 
-              $(".thepost").removeClass(post_type);                                 
-          }, 500);
-      });
-      $(".backdrop").click(function() {
-          var id_post = $(this).attr("data-id");
-          {block:HomePage}
-          $(".content").removeClass("animation");
-          $(".content").addClass("byeanimation");
-          {/block:HomePage}
-          {block:SearchPage}
-          $(".content").removeClass("animation");
-          $(".content").addClass("byeanimation");
-          {/block:SearchPage}
-          {block:TagPage}
-          $(".content").removeClass("animation");
-          $(".content").addClass("byeanimation");
-          {/block:TagPage}
-           $(".following-container").removeClass("animation");
-          $(".following-container").addClass("byeanimation");
-          var move_like = $(".lightbox-like").find(".like");
-          let thepost2 = $(".thepost > .post-content");
-           thepost2.prependTo($("#"+id_post));
-          move_like.appendTo($("#"+id_post).find(".post-like"));
-          setTimeout(function(){ 
-              $(".lightbox").css("display", "none"); 
-              $(".lightbox-follows").css("display", "none"); 
-              $(".backdrop").css("display", "none"); 
-              $(".thepost").removeClass(post_type);                                 
-          }, 500);
-          
-      });
-      //set all in lightbox
-      $(".post").click(function() {
-          //var mainpost = $(this).find(".post-content").html();
-          //$(".thepost").html(mainpost);
-          let thepost = $(this).find(".post-content");
-          thepost.appendTo(".thepost");
-          var caption = $(this).find(".post-caption").html();
-          $(".maincaption").html(caption);
-          //var tags = $(this).find(".post-tags").html();
-         // $(".maintags").html(tags);
-          var postdate = $(this).find(".post-date").html();
-          $(".thepostdate").html(postdate);
-          var notescount = $(this).find(".post-comments").html();
-          $(".lightbox-notes-count").html('<a class="lightbox-link" href="">'+notescount+'</a>');
-          var thenotes = $(this).find(".post-notes").html();
-          $(".lightbox-notes").html(thenotes);
-          var like = $(this).find(".like");
-          like.appendTo(".lightbox-like");
-          var reblog = $(this).find(".post-reblog").html();
-          $(".lightbox-reblog").html(reblog);
-          var permalink =  $(this).attr("data-link");
-          $(".lightbox-link").attr("href",permalink);
-          $(this).find(".post-caption").hide();
-            if(post_type == "photo"){
-            var photo = $(".lightbox").find(".post-image img");
-            let photo_width = parseInt(photo.css("width"));
-            let photo_height = parseInt(photo.css("height"));
-            let result = photo_width / photo_height;
-            if(photo_width > photo_height || (result < 1.3 && result > 0.93  )
-){
-                photo.css("width", "100%");
-            } else {
-                if(window.screen.width > 768){
-                    photo.css("height", "100%");
-                } else {
-                    photo.css("width", "100%");
-                }
-            }
-        }
-        
-        var photo_text = $(".lightbox").find(".tmblr-full");
-        photo_text.css("height", "100%")
-        
-        if(parseInt($(".thepost .post-content").css("height")) < 400 && post_type != "text"  ){
-            $(".thepost").css("justify-content", "center") ;
-        } else {
-             $(".thepost").css("justify-content", "start") ;
-        }
-      });
-      
-      };
-      doAll();
-      
-      //follow button
-      $("#follow_button").click(function() {
-          window.location.href = "https://www.tumblr.com/register/follow/"+'{Name}';
-      });
-      //toggle controls
-      $('.controls_tumblr').click(function(){
-            $(".iframe-controls--desktop").toggle( "slow" )
-        });
-      //show posts and likes
-      $(".show-likes").click(function() {
-         let width = sessionStorage.getItem('width_post');
-          $(".like_post").css("height", width);
-        $("#post-list").css("opacity", 0); 
-        $("#likes").css("opacity", 1); 
-        setTimeout(function(){ 
-        $("#post-list").css("display", "none"); 
-        $("#likes").css("display", "grid"); },300);
-      });
-      $(".show-posts").click(function() {
-          let width = sessionStorage.getItem('width_post');
-          $(".post").css("height", width);
-        $("#post-list").css("opacity", 1); 
-        $("#likes").css("opacity", 0); 
-         setTimeout(function(){ 
-        $("#post-list").css("display", "grid"); 
-        $("#likes").css("display", "none"); },300);
-      });
-      //add overlay to liked posts
-      $(".like_post").append('<div class="post-overlay"><span class="post-comments fromLeft"><i class="bi bi-eye"></i></span><p class="fromRight">view original post</p></div>');
-      
-      //scroll to top button
-      function scrollFunction() {
-            if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
-            document.getElementById("top_button").style.display = "flex";
-            } else {
-            document.getElementById("top_button").style.display = "none";
-            }
-        }
-        $('#top_button').click(function(){ 
-            document.body.scrollTop = 0;
-            document.documentElement.scrollTop = 0;
-        });
-        $(window).on("scroll", function() {
-            scrollFunction();
-        });
-      
-        function gatherData(images, arr) {
-          for (let i = 0; i < images.length; i++) {
-            let currentData = {
-              "width": images[i].getAttribute('data-width'),
-              "height": images[i].getAttribute('data-height'),
-              "low_res": images[i].getAttribute('data-lowres'),
-              "high_res": images[i].getAttribute('data-highres')
-            };
-            arr.push(currentData);
-          }
-        }
-        function getIndex(elem) {
-          let i = 0;
-          while( (elem = elem.previousElementSibling) != null ) i++;
-          return i;
-        }
-        function lightbox(elem) {
-          let currentPhotoset = elem.parentNode;
-          let photosetPhotos = currentPhotoset.getElementsByTagName('div');
-          let data = [];
-          gatherData(photosetPhotos, data);
-          Tumblr.Lightbox.init(data, getIndex(elem) + 1);
-        }
-        //infinte scroll
-        {block:IfEnableInfiniteScroll}
-        var container = $('.autopagerize_page_element');
-         container.infiniteScroll({
-          path: '.pagination__next',
-          append: '.post',
-          history: false,
-        });
-    container.on( 'append.infiniteScroll', function( event, body, path, items, response ) {
-  initPhotosets();
-  var script = document.createElement('script');
-    script.src = "//npf-images-v3.github.io/script.js";
-    document.head.appendChild(script);
-  doAll();
-});
-{/block:IfEnableInfiniteScroll}
-
-    //mobile side menu 
-    var showMenu = false;
-    $('.opennav, #closemenu').click(function(){
-        showMenu = !showMenu;
-        if(showMenu){
-            $(".profile-followers").css("transform", "translateX(0px)");
-        } else {
-            $(".profile-followers").css("transform", "translateX(-250px)");
-        }
-    });
-});
-
- </script>
-  <style>
+<style>
 @import url('https://fonts.googleapis.com/css2?family=Josefin+Slab&family=Mali:wght@300;400&family=Quicksand:wght@300;400&display=swap');
 @font-face {
     font-family: 'levi';
@@ -2019,7 +1703,7 @@ $(document).ready(function(){
   background-color: var(--bg-lightbox);
   {block:IfHideLoadingScreen}
   display: none;
-  {block:IfHideLoadingScreen}
+  {/block:IfHideLoadingScreen}
 }
 
 #loading-image {
@@ -3461,6 +3145,318 @@ $(document).ready(function(){
 	C2356.8828,203.1455,2354.8281,179.4941,2350.2393,158.1748z"/>
 </svg>
 </a>
+
+<script>
+$(document).ready(function(){
+    initPhotosets(); 
+    //adjust image on permalink 
+    {block:PermalinkPage}
+        $(".perma-username").html("{Title}");
+        var photo = $(".lightbox-perma").find(".post-image img");
+            let photo_width = parseInt(photo.css("width"));
+            let photo_height = parseInt(photo.css("height"));
+            let result = photo_width / photo_height;
+            if(photo_width > photo_height || (result < 1.3 && result > 0.93 )){
+                photo.css("width", "100%");
+            } else {
+                if(window.screen.width > 768){
+                    photo.css("height", "100%");
+                } else {
+                    photo.css("width", "100%");
+                }
+            }
+            
+        if(parseInt($(".post-content").css("height")) < 500){
+            $(".thepost").css("justify-content", "center") ;
+        } else {
+            $(".thepost").css("justify-content", "start") ;
+        }
+        
+        //remove controls functionality on custom pages
+        $(".lightbox-go-permalink a").removeAttr( "href" );
+        if(window.location.href.indexOf("/post/") === -1) {
+                $(".reblog").removeAttr( "href" );
+                $(".like").removeAttr( "href" );
+                $(".lightbox-reblog, .lightbox-like").removeAttr( "data-title" );
+                $(".controls svg").hover(function(){
+                    $(this).css("fill", "rgb(133,133,133)");
+                    }, function(){
+                    $(this).css("fill", "rgb(133,133,133)");
+                });
+        }
+    {/block:PermalinkPage}
+    let width_post = $(".post").css("width");
+    sessionStorage.setItem('width_post', width_post);
+    
+    $(".search").click(function(){
+        $(".inputsearch").toggleClass("search-active");
+        });
+        
+    function doAll() {
+        customAudio({
+            post: ".post",
+            default: false,
+            pauseAll: true,
+            playButton: '<i class="bi bi-play-circle"></i>',
+            pauseButton: '<i class="bi bi-pause-circle"></i>',
+            errorIcon: '<i class="bi bi-x-circle"></i>',
+            hideInfoIfError: true,
+            callAfterLoad: null
+        });
+        
+        {block:HomePage}
+        let width = sessionStorage.getItem('width_post');
+        $(".post").css("height", width);
+        $(".like_post").css("height", width);
+        if (width === "0px") {
+            $(".post").css("height", "200px");
+        }
+        {/block:HomePage}
+        {block:SearchPage}
+        var width = $(".post").css("width");
+        $(".post").css("height", width);
+        $(".like_post").css("height", width);
+        {/block:SearchPage}
+        {block:TagPage}
+        var width = $(".post").css("width");
+        $(".post").css("height", width);
+        $(".like_post").css("height", width);
+        {/block:TagPage}
+        
+        var master_id = 0;
+        var post_type ="";
+        //show lightbox
+        $(".post-overlay").click(function() {
+            master_id = $(this).attr("data-id");
+            post_type = $(this).attr("data-type"); 
+            post_link = $(this).attr("data-link");
+            $(".backdrop").attr("data-id",master_id);
+            $(".content").addClass("animation");
+            $(".content").removeClass("byeanimation");
+            $(".lightbox").css("display", "flex");
+            $(".backdrop").css("display", "flex");
+            $(".backdrop > .closelightbox").css("display","flex");
+            $(".thepost").addClass(post_type);
+            $(".thepost .text-gradient").css("display", "none");
+        });
+        //show following
+        $("#following").click(function() {
+        $(".following-container").addClass("animation");
+            $(".following-container").removeClass("byeanimation");
+            $(".lightbox-follows").css("display", "flex");
+            $(".backdrop").css("display", "flex");
+            $(".backdrop > .closelightbox").css("display","none");
+        });
+        //close lightbox and return like to original position
+        $(".closelightbox").click(function() {
+            {block:HomePage}
+            $(".content").removeClass("animation");
+            $(".content").addClass("byeanimation");
+            {/block:HomePage}
+            {block:SearchPage}
+            $(".content").removeClass("animation");
+            $(".content").addClass("byeanimation");
+            {/block:SearchPage}
+            {block:TagPage}
+            $(".content").removeClass("animation");
+            $(".content").addClass("byeanimation");
+            {/block:TagPage}
+            $(".following-container").removeClass("animation");
+            $(".following-container").addClass("byeanimation");
+            var move_like = $(".lightbox-like").find(".like");
+            move_like.appendTo($("#"+master_id).find(".post-like"));
+            setTimeout(function(){ 
+                $(".lightbox").css("display", "none"); 
+                $(".lightbox-follows").css("display", "none"); 
+                $(".backdrop").css("display", "none"); 
+                $(".thepost").removeClass(post_type);                                 
+            }, 500);
+        });
+        $(".backdrop").click(function() {
+            var id_post = $(this).attr("data-id");
+            {block:HomePage}
+            $(".content").removeClass("animation");
+            $(".content").addClass("byeanimation");
+            {/block:HomePage}
+            {block:SearchPage}
+            $(".content").removeClass("animation");
+            $(".content").addClass("byeanimation");
+            {/block:SearchPage}
+            {block:TagPage}
+            $(".content").removeClass("animation");
+            $(".content").addClass("byeanimation");
+            {/block:TagPage}
+            $(".following-container").removeClass("animation");
+            $(".following-container").addClass("byeanimation");
+            var move_like = $(".lightbox-like").find(".like");
+            let thepost2 = $(".thepost > .post-content");
+            thepost2.prependTo($("#"+id_post));
+            move_like.appendTo($("#"+id_post).find(".post-like"));
+            setTimeout(function(){ 
+                $(".lightbox").css("display", "none"); 
+                $(".lightbox-follows").css("display", "none"); 
+                $(".backdrop").css("display", "none"); 
+                $(".thepost").removeClass(post_type);                                 
+            }, 500);  
+        });
+        //set all in lightbox
+            $(".post").click(function() {
+            let thepost = $(this).find(".post-content");
+            thepost.appendTo(".thepost");
+            var caption = $(this).find(".post-caption").html();
+            $(".maincaption").html(caption);
+            var postdate = $(this).find(".post-date").html();
+            $(".thepostdate").html(postdate);
+            var notescount = $(this).find(".post-comments").html();
+            $(".lightbox-notes-count").html('<a class="lightbox-link" href="">'+notescount+'</a>');
+            var thenotes = $(this).find(".post-notes").html();
+            $(".lightbox-notes").html(thenotes);
+            var like = $(this).find(".like");
+            like.appendTo(".lightbox-like");
+            var reblog = $(this).find(".post-reblog").html();
+            $(".lightbox-reblog").html(reblog);
+            var permalink =  $(this).attr("data-link");
+            $(".lightbox-link").attr("href",permalink);
+            $(this).find(".post-caption").hide();
+            if(post_type == "photo"){
+            var photo = $(".lightbox").find(".post-image img");
+            let photo_width = parseInt(photo.css("width"));
+            let photo_height = parseInt(photo.css("height"));
+            let result = photo_width / photo_height;
+            if(photo_width > photo_height || (result < 1.3 && result > 0.93 )){
+                photo.css("width", "100%");
+            } else {
+                if(window.screen.width > 768){
+                    photo.css("height", "100%");
+                } else {
+                    photo.css("width", "100%");
+                }
+            }
+        }
+        
+        var photo_text = $(".lightbox").find(".tmblr-full");
+        photo_text.css("height", "100%")
+        
+        if(parseInt($(".thepost .post-content").css("height")) < 400 && post_type != "text" ){
+            $(".thepost").css("justify-content", "center") ;
+        } else {
+            $(".thepost").css("justify-content", "start") ;
+        }
+        });
+        
+    };
+    doAll();
+    
+    //follow button
+    $("#follow_button").click(function() {
+        window.location.href = "https://www.tumblr.com/register/follow/"+'{Name}';
+    });
+    //toggle controls
+    $('.controls_tumblr').click(function(){
+        $(".iframe-controls--desktop").toggle( "slow" )
+    });
+    //show posts and likes
+    $(".show-likes").click(function() {
+        let width = sessionStorage.getItem('width_post');
+        $(".like_post").css("height", width);
+        $("#post-list").css("opacity", 0); 
+        $("#likes").css("opacity", 1); 
+        setTimeout(function(){ 
+            $("#post-list").css("display", "none"); 
+            $("#likes").css("display", "grid"); },300);
+    });
+    $(".show-posts").click(function() {
+        let width = sessionStorage.getItem('width_post');
+        $(".post").css("height", width);
+        $("#post-list").css("opacity", 1); 
+        $("#likes").css("opacity", 0); 
+            setTimeout(function(){ 
+                $("#post-list").css("display", "grid"); 
+                $("#likes").css("display", "none"); },300);
+    });
+    //add overlay to liked posts
+    $(".like_post").append('<div class="post-overlay"><span class="post-comments fromLeft"><i class="bi bi-eye"></i></span><p class="fromRight">view original post</p></div>');
+    
+    //scroll to top button
+    function scrollFunction() {
+        if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+        document.getElementById("top_button").style.display = "flex";
+        } else {
+        document.getElementById("top_button").style.display = "none";
+        }
+    }
+    $('#top_button').click(function(){ 
+        document.body.scrollTop = 0;
+        document.documentElement.scrollTop = 0;
+    });
+    $(window).on("scroll", function() {
+        scrollFunction();
+    });
+    
+    function gatherData(images, arr) {
+        for (let i = 0; i < images.length; i++) {
+        let currentData = {
+            "width": images[i].getAttribute('data-width'),
+            "height": images[i].getAttribute('data-height'),
+            "low_res": images[i].getAttribute('data-lowres'),
+            "high_res": images[i].getAttribute('data-highres')
+        };
+        arr.push(currentData);
+        }
+    }
+    function getIndex(elem) {
+        let i = 0;
+        while( (elem = elem.previousElementSibling) != null ) i++;
+        return i;
+    }
+
+    function lightbox(elem) {
+        let currentPhotoset = elem.parentNode;
+        let photosetPhotos = currentPhotoset.getElementsByTagName('div');
+        let data = [];
+        gatherData(photosetPhotos, data);
+        Tumblr.Lightbox.init(data, getIndex(elem) + 1);
+    }
+    //infinte scroll
+    {block:IfEnableInfiniteScroll}
+    var container = $('.autopagerize_page_element');
+        container.infiniteScroll({
+        path: '.pagination__next',
+        append: '.post',
+        history: false,
+    });
+
+    container.on( 'append.infiniteScroll', function( event, body, path, items, response ) {
+        initPhotosets();
+        var script = document.createElement('script');
+        script.src = "//npf-images-v3.github.io/script.js";
+        document.head.appendChild(script);
+        doAll();
+    });
+{/block:IfEnableInfiniteScroll}
+
+    //mobile side menu 
+    var showMenu = false;
+    $('.opennav, #closemenu').click(function(){
+        showMenu = !showMenu;
+        if(showMenu){
+            $(".profile-followers").css("transform", "translateX(0px)");
+        } else {
+            $(".profile-followers").css("transform", "translateX(-250px)");
+        }
+    });
+});
+
+//onload loading 
+if(window.location.href.indexOf("customize") === -1) {
+    $(window).on('load', function () {
+        $("#loading").css("display", "none"); 
+    }); 
+} else {
+    $("#loading").css("display", "none"); 
+}
+
+</script>
 
 </body>
 </html>

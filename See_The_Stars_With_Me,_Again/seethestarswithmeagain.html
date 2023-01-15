@@ -1,11 +1,10 @@
 <!--
+
 "See The Stars With Me, Again" 
 by @palemomos [themesbypale.tumblr.com]
 ver. 1.0 (Jan/08/2023)
 Thanks for using my theme!
 Please don't remove the credits.
-
-Credits
 
 ★ Background images made by Pale @themesbypale using a stars transparent gif found in giphy
 ★ Font "Thin Pixel-7" is from dafont.com and belongs to Style-7
@@ -15,7 +14,7 @@ Credits
 ★ Basecode for unnested captions by @annasthms
 ★ Custom like & reblog buttons tutorial: by @shythemes
 ★ Attributes backgrounds generated with https://www.magicpattern.design/
-★ Player stats UI inspired by videogame "Chrono" Trigger by Square Enix
+★ Player stats UI inspired by videogame "Chrono Trigger" by Square Enix
 
 If you have questions please send them to themesbypale.tumblr.com/ask or to themesbypale@gmail.com
 
@@ -24,23 +23,24 @@ Support me on Ko-fi ? https://ko-fi.com/palemomos
 -->
 <html>
 <head>
-    <title>{Title}{block:PermalinkPage}{block:PostSummary} | {PostSummary}{/block:PostSummary}{/block:PermalinkPage} {block:TagPage} | {lang:Posts tagged Tag}{/block:TagPage}{block:SearchPage} | {lang:Search results for SearchQuery}{/block:SearchPage}</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{Title}
+        {block:PermalinkPage}{block:PostSummary} | {PostSummary} {/block:PostSummary}{/block:PermalinkPage} 
+        {block:TagPage} | {lang:Posts tagged Tag}{/block:TagPage}
+        {block:DayPage} | {Month} {DayOfMonth}, {Year} {/block:DayPage}
+        {block:SearchPage} | {lang:Search results for SearchQuery}{/block:SearchPage}</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
     <link rel="shortcut icon" href="{Favicon}">
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <link rel="alternate" type="application/rss+xml" href="{RSS}">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://static.tumblr.com/0podkko/aZZqe4033/customaudio.min.js"></script>
-        <!--
-        NPF images fix v3.0 by @glenthemes [2021]
-        💌 git.io/JRBt7
---->
     <script src="//npf-images-v3.github.io/script.js"></script>
     <link rel="stylesheet" href="//npf-images-v3.github.io/recon.css">
     <style tmblr-npf>
     :root {
-        --NPF-Caption-Spacing:1em;
-        --NPF-Image-Spacing:4px;
+        --NPF-Caption-Spacing:1rem;
+        --NPF-Image-Spacing:0px;
     }
     </style>
     <link rel="stylesheet" media="screen" href="//assets.tumblr.com/client/prod/standalone/blog-network-npf/index.build.css">
@@ -85,245 +85,11 @@ Support me on Ko-fi ? https://ko-fi.com/palemomos
     <meta name="text:Equipment" content="Crimson Blade,	Nova Armor, Hide cap, Schala's amulet" />
     <meta name="text:Stats" content="POWER:5, HIT:8, MAGIC:8, M. DEF:10, SPEED:5, EVADE:7, STAMINA:9, EXP:10" />
     <meta name="text:More Links" content="https://twitter.com/,twitter,https://www.youtube.com/,youtube,https://seethestarswithmeagain.tumblr.com/tagged/tags,tag,pasteanotherlink,another link"/>
-     <meta name="text:Window Text" content="Another big big big text. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."/>
+    <meta name="text:Window Text" content="Another big big big text. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."/>
      
-     <!--Images-->
-     <meta name="image:Custom dialogue img" content="" />
+    <!--Images-->
+    <meta name="image:Custom dialogue img" content="" />
 
-<script>
-let mode = "{select:Color Mode}";
-
-if(mode === "Pastel") {
-    document.documentElement.style.setProperty('--bg-image', "url('https://static.tumblr.com/vsycwa1/6ugro723x/pastel_sky.gif')");
-    document.documentElement.style.setProperty('--bg-nav', '#dbc6eb');
-    document.documentElement.style.setProperty('--bg-caption', '#b2b2db');
-    document.documentElement.style.setProperty('--text-color', '#ffffff');
-} else if(mode === "Dark") {
-    document.documentElement.style.setProperty('--bg-image', "url('https://static.tumblr.com/vsycwa1/wfcro00jc/night_sky.gif')");
-    document.documentElement.style.setProperty('--bg-nav', '#0a0a0a');
-    document.documentElement.style.setProperty('--bg-caption', '#161515');
-}
-
-$(document).ready(function () {
-    {block:IfTypingEffect}
-    typeWriter();
-    {/block:IfTypingEffect}
-    {block:IfNotTypingEffect}
-    smoothEntrance(); 
-    {/block:IfNotTypingEffect}
-    {block:PermalinkPage}
-    $(".caption").css("display", "block");
-    if(window.location.href.indexOf("/post/") === -1) {
-        $(".post-caption").hide();
-        if(window.location.href.indexOf("/ask") !== -1) {
-            $(".post").addClass("ask-page");
-        }
-    }
-    {/block:PermalinkPage}
-    
-    //toggle controls
-    $('.controls_tumblr').click(function(){
-        $(".iframe-controls--desktop").toggle( "slow" )
-    });
-    
-    //custom audio
-    customAudio({
-        	post: ".post",
-        	default: false,
-        	pauseAll: true,
-        	playButton: '<i class="bi bi-play-circle"></i>',
-        	pauseButton: '<i class="bi bi-pause-circle"></i>',
-        	errorIcon: '<i class="bi bi-x-circle"></i>',
-        	hideInfoIfError: true,
-        	callAfterLoad: null
-    });
-    {block:SearchPage}
-    if({SearchResultCount} <= 2){
-        $("#posts").css({"columns":"{SearchResultCount}"});
-    }
-    {/block:SearchPage}
-    {block:TagPage}
-        if($(".post").length <= 2){
-           $(".post").length == 2 ? $("#posts").css({"columns":"2"}) : $("#posts").css({"columns":"1"})
-        }
-    {/block:TagPage}
-    {block:DayPage} 
-        if($(".post").length <= 2){
-           $(".post").length == 2 ? $("#posts").css({"columns":"2"}) : $("#posts").css({"columns":"1"})
-        }
-    {/block:DayPage}
-        
-    //bolds
-    var bolds = document.getElementsByTagName("B");
-    for(var i = 0; i<bolds.length; i++){
-        bolds[i].style.letterSpacing = "3px";
-    }
-   
-   //Modals & Content
-   var showModal = false;
-   $('#open_modal, #close_modal').click(function () {
-        showModal = !showModal;
-         if (showModal) {
-            $("#modal_about").css({"visibility":"visible","opacity":"1","z-index":"20"});
-            $(".modal-content").css({"transform":"translateY(0px)","opacity":"1"});
-            $("#posts_list, .about").css("opacity",0);
-            setTimeout(function(){
-                $("html").css("overflow", "hidden");
-            }, 1000);
-        } else {
-            $("html").css("overflow", "auto");
-            $("#modal_about").css({"visibility":"hidden","opacity":"0","z-index":"-2"});
-            $(".modal-content").css({"transform":"translateY(-50vh)","opacity":"0"});
-            $("#posts_list, .about").css("opacity",1);
-        }
-   });
-
-    //Links in modal
-    var raw = "{text:More Links}";
-    var links =raw.split(',');
-    var links_box = document.getElementById("links_box");
-
-    for(let i=0; i<links.length; i++){
-        if(i%2 == 0){
-            links_box.innerHTML += "<li><a class='l1' target='_blank' href='"+links[i]+"' /><span class='triangle'><i class='bi bi-caret-right-fill'></i></span>"+links[i+1]+"</a></li>";
-        } 
-    }
-    
-    //Player stats content
-    {block:IfEnablePlayerStats}
-    
-    var date = new Date();
-    var date_box = document.getElementById("full-date");
-    const optionsDate = { weekday: 'short', year: 'numeric', month: 'short', day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit', timeZoneName: 'short'};
-
-    date_box.innerHTML += date.toLocaleDateString(undefined, optionsDate);
-
-    var gold_box = document.getElementById("gold-qty");
-    gold_box.innerHTML += "{text:Gold}"+"G";
-    
-    var raw_equipment = "{text:Equipment}";
-    var equipment = raw_equipment.split(',');
-    var ui_equipment = document.getElementById("ui-items");
-
-    for(let i=0; i<equipment.length; i++){
-        ui_equipment.innerHTML += "<li>"+equipment[i]+"</li>";
-    }
-    
-    var stats_equipment = "{text:Stats}";
-    var stats = stats_equipment.split(',');
-    var ui_stats1 = document.getElementById("ui-stats1");
-    var ui_stats2 = document.getElementById("ui-stats2");
-    var stats_points1 = 0;
-    var stats_points2 = 0;
-    
-    for(let i=0; i<stats.length; i++){
-        let att = stats[i].split(":");
-        if(i<stats.length/2){
-            ui_stats1.innerHTML += "<dt>"+att[0]+"</dt>"+"<dd>"+att[1]+"</dd>";
-            stats_points1 += Number(att[1]);
-        } else {
-            ui_stats2.innerHTML += "<dt>"+att[0]+"</dt>"+"<dd>"+att[1]+"</dd>";
-            stats_points2 += Number(att[1]);
-        }
-    }
-    
-    var stats_points = document.getElementById("stats-points");
-    stats_points.innerHTML += '<p><i class="bi bi-hammer"></i>'+stats_points1+'<i class="bi bi-shield-fill-plus"></i>'+stats_points2+'</p>';
-    {/block:IfEnablePlayerStats}
-    
-    //scroll function
-    window.onscroll = function() {
-        scrollFunction();
-        fixednav();
-    };
-    
-    //stick navigation
-    var navbar = document.getElementById("descontainer");
-    var sticky = navbar.offsetTop;
-    
-    //blink triangle effect
-    $('.l1', this).hover(function (e) {
-        $('> .triangle', this).css("animation", e.type === "mouseenter" ? "blink 1s linear infinite" : "none")
-    });
-    
-    function fixednav() {
-        var x = window.matchMedia("(min-width: 700px)");
-        if (x.matches) { 
-           
-          if (window.pageYOffset >= sticky) {
-            navbar.classList.add("sticky")
-          } else {
-            navbar.classList.remove("sticky");
-          }
-        }
-    }
-});
-
-//Typewritter effect
-
-var count1 = 0;
-var stopTypeWriter = false;
-
-function stopTypewritter(){
-    stopTypeWriter = true;
-}
-
-function typeWriter() {
-    let txt1 = "{block:Description}{Description}{/block:Description}"; 
-    if(stopTypeWriter){
-        let substring = txt1.substring(count1, txt1.length);
-        document.getElementById("description_text").innerHTML+= substring;
-        $("#stopTypewritter").hide();
-        smoothEntrance(true);
-        return;
-    }
-    {block:HomePage}
-        if($("#desc").hasClass("page-1")){
-            $("#desc, .stopTypewritter").css("opacity",1);
-            $("#description_text-home").css("display","none");
-            if (count1 < txt1.length) {
-                document.getElementById("description_text").innerHTML += txt1.charAt(count1);
-                    count1++;
-                    setTimeout(typeWriter, 50);
-                } else {
-                    $("#stopTypewritter").hide();
-                    smoothEntrance(true);
-                }  
-        } else {
-            smoothEntrance();
-        }
-        
-    {/block:HomePage}
-    {block:DayPage}smoothEntrance(); {/block:DayPage}
-    {block:TagPage}smoothEntrance();{/block:TagPage}
-    {block:PermalinkPage} smoothEntrance();{/block:PermalinkPage}
-    {block:SearchPage} smoothEntrance(); {/block:SearchPage} 
-}
-
-//faded effect
-function smoothEntrance(home) {
-    if (!home) $("#description_text-home").css("opacity",1);
-    $(".blog-title").css("opacity",1);
-    $("#desc").css("opacity",1);
-    $(".subtitle").css("opacity",1);
-    $(".toplinks").css({"opacity":1, "visibility":"visible"});
-    $("#posts").css({"opacity":1, "visibility":"visible"});
-}
-
-function scrollFunction() {
-    if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
-        document.getElementById("top_button").style.display = "flex";
-    } else {
-        document.getElementById("top_button").style.display = "none";
-    }
-}
-
-function topFunction() {
-    document.body.scrollTop = 0;
-    document.documentElement.scrollTop = 0;
-}
-</script>
-  
 <style>
 :root {
     --border-color: #f2f2f2;
@@ -334,7 +100,6 @@ function topFunction() {
 }
         
 /**GENERAL**/
-
 @font-face {
     font-family: 'pixelthin';
     src: url('https://static.tumblr.com/vsycwa1/bczro72u5/thin_pixel-7.ttf');
@@ -1787,5 +1552,239 @@ display: grid;
 	C2356.8828,203.1455,2354.8281,179.4941,2350.2393,158.1748z"/>
 </svg>
 </a>
+
+<script>
+    let mode = "{select:Color Mode}";
+    
+    if(mode === "Pastel") {
+        document.documentElement.style.setProperty('--bg-image', "url('https://static.tumblr.com/vsycwa1/6ugro723x/pastel_sky.gif')");
+        document.documentElement.style.setProperty('--bg-nav', '#dbc6eb');
+        document.documentElement.style.setProperty('--bg-caption', '#b2b2db');
+        document.documentElement.style.setProperty('--text-color', '#ffffff');
+    } else if(mode === "Dark") {
+        document.documentElement.style.setProperty('--bg-image', "url('https://static.tumblr.com/vsycwa1/wfcro00jc/night_sky.gif')");
+        document.documentElement.style.setProperty('--bg-nav', '#0a0a0a');
+        document.documentElement.style.setProperty('--bg-caption', '#161515');
+    }
+    
+    $(document).ready(function () {
+        {block:IfTypingEffect}
+        typeWriter();
+        {/block:IfTypingEffect}
+        {block:IfNotTypingEffect}
+        smoothEntrance(); 
+        {/block:IfNotTypingEffect}
+        {block:PermalinkPage}
+        $(".caption").css("display", "block");
+        if(window.location.href.indexOf("/post/") === -1) {
+            $(".post-caption").hide();
+            if(window.location.href.indexOf("/ask") !== -1) {
+                $(".post").addClass("ask-page");
+            }
+        }
+        {/block:PermalinkPage}
+        
+        //toggle controls
+        $('.controls_tumblr').click(function(){
+            $(".iframe-controls--desktop").toggle( "slow" )
+        });
+        
+        //custom audio
+        customAudio({
+                post: ".post",
+                default: false,
+                pauseAll: true,
+                playButton: '<i class="bi bi-play-circle"></i>',
+                pauseButton: '<i class="bi bi-pause-circle"></i>',
+                errorIcon: '<i class="bi bi-x-circle"></i>',
+                hideInfoIfError: true,
+                callAfterLoad: null
+        });
+        {block:SearchPage}
+        if({SearchResultCount} <= 2){
+            $("#posts").css({"columns":"{SearchResultCount}"});
+        }
+        {/block:SearchPage}
+        {block:TagPage}
+            if($(".post").length <= 2){
+               $(".post").length == 2 ? $("#posts").css({"columns":"2"}) : $("#posts").css({"columns":"1"})
+            }
+        {/block:TagPage}
+        {block:DayPage} 
+            if($(".post").length <= 2){
+               $(".post").length == 2 ? $("#posts").css({"columns":"2"}) : $("#posts").css({"columns":"1"})
+            }
+        {/block:DayPage}
+            
+        //bolds
+        var bolds = document.getElementsByTagName("B");
+        for(var i = 0; i<bolds.length; i++){
+            bolds[i].style.letterSpacing = "3px";
+        }
+       
+       //Modals & Content
+       var showModal = false;
+       $('#open_modal, #close_modal').click(function () {
+            showModal = !showModal;
+             if (showModal) {
+                $("#modal_about").css({"visibility":"visible","opacity":"1","z-index":"20"});
+                $(".modal-content").css({"transform":"translateY(0px)","opacity":"1"});
+                $("#posts_list, .about").css("opacity",0);
+                setTimeout(function(){
+                    $("html").css("overflow", "hidden");
+                }, 1000);
+            } else {
+                $("html").css("overflow", "auto");
+                $("#modal_about").css({"visibility":"hidden","opacity":"0","z-index":"-2"});
+                $(".modal-content").css({"transform":"translateY(-50vh)","opacity":"0"});
+                $("#posts_list, .about").css("opacity",1);
+            }
+       });
+    
+        //Links in modal
+        var raw = "{text:More Links}";
+        var links =raw.split(',');
+        var links_box = document.getElementById("links_box");
+    
+        for(let i=0; i<links.length; i++){
+            if(i%2 == 0){
+                links_box.innerHTML += "<li><a class='l1' target='_blank' href='"+links[i]+"' /><span class='triangle'><i class='bi bi-caret-right-fill'></i></span>"+links[i+1]+"</a></li>";
+            } 
+        }
+        
+        //Player stats content
+        {block:IfEnablePlayerStats}
+        
+        var date = new Date();
+        var date_box = document.getElementById("full-date");
+        const optionsDate = { weekday: 'short', year: 'numeric', month: 'short', day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit', timeZoneName: 'short'};
+    
+        date_box.innerHTML += date.toLocaleDateString(undefined, optionsDate);
+    
+        var gold_box = document.getElementById("gold-qty");
+        gold_box.innerHTML += "{text:Gold}"+"G";
+        
+        var raw_equipment = "{text:Equipment}";
+        var equipment = raw_equipment.split(',');
+        var ui_equipment = document.getElementById("ui-items");
+    
+        for(let i=0; i<equipment.length; i++){
+            ui_equipment.innerHTML += "<li>"+equipment[i]+"</li>";
+        }
+        
+        var stats_equipment = "{text:Stats}";
+        var stats = stats_equipment.split(',');
+        var ui_stats1 = document.getElementById("ui-stats1");
+        var ui_stats2 = document.getElementById("ui-stats2");
+        var stats_points1 = 0;
+        var stats_points2 = 0;
+        
+        for(let i=0; i<stats.length; i++){
+            let att = stats[i].split(":");
+            if(i<stats.length/2){
+                ui_stats1.innerHTML += "<dt>"+att[0]+"</dt>"+"<dd>"+att[1]+"</dd>";
+                stats_points1 += Number(att[1]);
+            } else {
+                ui_stats2.innerHTML += "<dt>"+att[0]+"</dt>"+"<dd>"+att[1]+"</dd>";
+                stats_points2 += Number(att[1]);
+            }
+        }
+        
+        var stats_points = document.getElementById("stats-points");
+        stats_points.innerHTML += '<p><i class="bi bi-hammer"></i>'+stats_points1+'<i class="bi bi-shield-fill-plus"></i>'+stats_points2+'</p>';
+        {/block:IfEnablePlayerStats}
+        
+        //scroll function
+        window.onscroll = function() {
+            scrollFunction();
+            fixednav();
+        };
+        
+        //stick navigation
+        var navbar = document.getElementById("descontainer");
+        var sticky = navbar.offsetTop;
+        
+        //blink triangle effect
+        $('.l1', this).hover(function (e) {
+            $('> .triangle', this).css("animation", e.type === "mouseenter" ? "blink 1s linear infinite" : "none")
+        });
+        
+        function fixednav() {
+            var x = window.matchMedia("(min-width: 700px)");
+            if (x.matches) { 
+               
+              if (window.pageYOffset >= sticky) {
+                navbar.classList.add("sticky")
+              } else {
+                navbar.classList.remove("sticky");
+              }
+            }
+        }
+    });
+    
+    //Typewritter effect
+    
+    var count1 = 0;
+    var stopTypeWriter = false;
+    
+    function stopTypewritter(){
+        stopTypeWriter = true;
+    }
+    
+    function typeWriter() {
+        let txt1 = "{block:Description}{Description}{/block:Description}"; 
+        if(stopTypeWriter){
+            let substring = txt1.substring(count1, txt1.length);
+            document.getElementById("description_text").innerHTML+= substring;
+            $("#stopTypewritter").hide();
+            smoothEntrance(true);
+            return;
+        }
+        {block:HomePage}
+            if($("#desc").hasClass("page-1")){
+                $("#desc, .stopTypewritter").css("opacity",1);
+                $("#description_text-home").css("display","none");
+                if (count1 < txt1.length) {
+                    document.getElementById("description_text").innerHTML += txt1.charAt(count1);
+                        count1++;
+                        setTimeout(typeWriter, 50);
+                    } else {
+                        $("#stopTypewritter").hide();
+                        smoothEntrance(true);
+                    }  
+            } else {
+                smoothEntrance();
+            }
+            
+        {/block:HomePage}
+        {block:DayPage}smoothEntrance(); {/block:DayPage}
+        {block:TagPage}smoothEntrance();{/block:TagPage}
+        {block:PermalinkPage} smoothEntrance();{/block:PermalinkPage}
+        {block:SearchPage} smoothEntrance(); {/block:SearchPage} 
+    }
+    
+    //faded effect
+    function smoothEntrance(home) {
+        if (!home) $("#description_text-home").css("opacity",1);
+        $(".blog-title").css("opacity",1);
+        $("#desc").css("opacity",1);
+        $(".subtitle").css("opacity",1);
+        $(".toplinks").css({"opacity":1, "visibility":"visible"});
+        $("#posts").css({"opacity":1, "visibility":"visible"});
+    }
+    
+    function scrollFunction() {
+        if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+            document.getElementById("top_button").style.display = "flex";
+        } else {
+            document.getElementById("top_button").style.display = "none";
+        }
+    }
+    
+    function topFunction() {
+        document.body.scrollTop = 0;
+        document.documentElement.scrollTop = 0;
+    }
+</script>
 </body>
 </html>
