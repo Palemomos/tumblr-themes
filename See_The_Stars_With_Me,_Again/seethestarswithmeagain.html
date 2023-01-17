@@ -1031,6 +1031,17 @@ display: grid;
 }
 
 @media only screen and (max-width: 1366px) { 
+    #posts {
+        width: 90%;
+        margin: 0 auto;
+    }
+    
+    #postes { 
+        display: block;   
+    }
+}
+
+@media only screen and (max-width: 1024px) { 
     .post img {
         width: 100%;
     }
@@ -1075,6 +1086,10 @@ display: grid;
         {/block:Permalink}
     }
     
+    .post {
+        max-width: auto;
+    }
+    
     header {
         margin-top: 40px;
     }
@@ -1086,12 +1101,71 @@ display: grid;
     .ask-page {
         width: 100%;
     }
+    
 }
+   
     
 @media only screen and (max-width: 450px) {
     h1 {
         font-size: 50px;
     }   
+    
+     .modal-content, .container-ui {
+        width: 100%;
+    }
+    
+    .ui-user {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .ui-photo img {
+        width: 100px;
+        height: 100px;
+        margin-bottom: 10px;
+    }
+    
+    .ui-items {
+        min-width: auto;
+    }
+    
+    .ui-items li {
+        width: auto;
+    }
+    
+    .ui-stats-columns {
+        flex-direction: column;
+    }
+    
+    .ui-bio {
+        grid-template-rows: 1fr auto 1fr;
+    }
+    
+    .ui-stats .ui-stats-info {
+        margin: 0;
+    }
+    
+    .modal-content {
+        flex-direction: column;
+    }
+    
+    .modal-content .avatar {
+        border: none !important;
+        text-align: center;
+    }
+    
+    .modal-content img {
+        object-fit: contain;
+        width: 80px;
+        height: 80px;
+        border: none !important;
+        margin: 10px;
+    }
+    
+    #close_modal {
+        position: absolute;
+        right: 0;
+    }
 }
 {CustomCSS} 
 </style>
