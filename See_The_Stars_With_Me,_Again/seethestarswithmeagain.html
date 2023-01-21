@@ -2,7 +2,7 @@
 
 "See The Stars With Me, Again" 
 by @palemomos [themesbypale.tumblr.com]
-ver. 1.0 (Jan/08/2023)
+ver. 1.1 (Jan/21/2023)
 Thanks for using my theme!
 Please don't remove the credits.
 
@@ -12,6 +12,7 @@ Please don't remove the credits.
 ★ NPF images: fix v3.0 by @glenthemes [2021] ? git.io/JRBt7
 ★ Custom audio controls: by @annasthms
 ★ Basecode for unnested captions by @annasthms
+★ CSS Photosets: by @annasthms & @eggdesign https://annasthms.github.io/photosets/
 ★ Custom like & reblog buttons tutorial: by @shythemes
 ★ Attributes backgrounds generated with https://www.magicpattern.design/
 ★ Player stats UI inspired by videogame "Chrono Trigger" by Square Enix
@@ -36,6 +37,8 @@ Support me on Ko-fi ? https://ko-fi.com/palemomos
     <link rel="alternate" type="application/rss+xml" href="{RSS}">
     <script src="https://static.tumblr.com/0podkko/aZZqe4033/customaudio.min.js"></script>
     <script src="//npf-images-v3.github.io/script.js"></script>
+    <link href="https://static.tumblr.com/0podkko/xIbplezmo/modified_photosets.css" rel="stylesheet">
+    <script src="https://static.tumblr.com/0podkko/jfMplm3f8/modified_photosets.js"></script>
     <link rel="stylesheet" href="//npf-images-v3.github.io/recon.css">
     <style tmblr-npf>
     :root {
@@ -89,7 +92,7 @@ Support me on Ko-fi ? https://ko-fi.com/palemomos
      
     <!--Images-->
     <meta name="image:Custom dialogue img" content="" />
-
+    
 <style>
 :root {
     --border-color: #f2f2f2;
@@ -163,8 +166,9 @@ h1.blog-title {
     margin: 0;
     padding: 0;
     line-height: 50px;
-    opacity: 0;
-    transition: 0.2s opacity ease;
+    {block:IfNotTypingEffect}
+    animation: fadeIn 1s ease; 
+    {/block:IfNotTypingEffect}
 }
 
 h2.subtitle {
@@ -175,8 +179,9 @@ h2.subtitle {
     margin: 0;
     padding: 0;
     line-height: 50px;
-    opacity: 0;
-    transition: 0.2s opacity ease;
+    {block:IfNotTypingEffect}
+    animation: fadeIn 1s ease; 
+    {/block:IfNotTypingEffect}
 }
 
 p {
@@ -196,6 +201,16 @@ h1, h2, h3, h4, h5 {
     border-style: double;
     border-color: var(--border-color);
 }
+
+.hidden {
+    opacity: 0;
+    visibility: hidden;
+}
+
+@keyframes fadeIn {
+  0% { opacity: 0; visibility: hidden;}
+  100% { opacity: 1; visibility: visible; }
+}
             
 /**HEADER**/
 header {
@@ -212,18 +227,31 @@ header {
     font-size: calc(5px + {select:Text Size});
     line-height: 25px;
     padding: 5px 5px 5px 15px;
-    opacity: 0;
-    transition: 0.2s opacity ease;
+    transition: 0.5s opacity ease;
+    {block:IfNotTypingEffect}
+    animation: fadeIn 1s ease; 
+    {/block:IfNotTypingEffect}
+}
+
+#description_text {
+    {block:IfNotTypingEffect}
+    animation: fadeIn 1s ease; 
+    {/block:IfNotTypingEffect}
 }
 
 #description_text, #description_text-home {
+    min-height: 28px;
     max-height: 100px;
-    overflow: auto;
+    overflow-y: auto;
+}
+
+.page-1 #description_text{
+    min-height: 0px !important;
 }
 
 #description_text-home {
-     opacity: 0;
-     transition: 0.5s opacity ease;
+    opacity: 0;
+    transition: 0.5s opacity ease;
 }
 
 .stopTypewritter {
@@ -271,9 +299,9 @@ header {
     justify-content: flex-end;
     flex-wrap: wrap;
     margin-top: 30px;
-    opacity: 0;
-    visibility: hidden;
-    transition: 0.5s opacity ease;
+    {block:IfNotTypingEffect}
+    animation: fadeIn 1s ease; 
+    {/block:IfNotTypingEffect}
 }
 
 .triangle {
@@ -315,9 +343,9 @@ header {
     {block:Permalink}
     columns: 1;
     {/block:Permalink}
-    opacity: 0;
-    visibility: hidden;
-    transition: 0.8s opacity ease;
+     {block:IfNotTypingEffect}
+    animation: fadeIn 1.3s ease; 
+    {/block:IfNotTypingEffect}
 }
 
 .source-head, .commenter, .replier, a.asker, a.answerer {
@@ -353,6 +381,9 @@ header {
     margin: 10px 0px 40px 0px;
     position: relative;
     transition: 0.3s all ease;
+    {block:PermalinkPage}
+    opacity: 0;
+    {/block:PermalinkPage}
 }
 
 .post-caption:hover{
@@ -507,10 +538,36 @@ header {
 /*post types*/
 
 /*commons*/
-.post img,
-.photoset img {
+/*photosets*/
+
+.photo img {
     width: 100%;
-   /* height: 100%;*/
+}
+
+[photoset-layout] {
+    grid-gap: 4px;
+}
+  
+[photoset-layout] img, .npf_inst .tmblr-full img {
+    transition: filter 0.3s ease;
+}
+  
+.photo [photoset-layout] img {
+    height: auto;
+    object-fit: cover;
+}
+
+.tmblr-full img {
+    height: 100% !important;
+}
+  
+[photoset-layout] img:hover, .npf_inst .tmblr-full img:hover {
+    filter: brightness(0.7);
+}
+
+[photoset-layout] div {
+      cursor: pointer;
+      height: auto;
 }
  
 figure, video, iframe, .video, .video iframe, figure.tmblr-embed.tmblr-full, figure.tmblr-embed.tmblr-full iframe {
@@ -1042,12 +1099,8 @@ display: grid;
 }
 
 @media only screen and (max-width: 1024px) { 
-    .post img {
-        width: 100%;
-    }
-    
-    .photoset img {
-        width: 300px;
+    .photo img {
+         width: 100%;
     }
     
     .post {
@@ -1079,7 +1132,7 @@ display: grid;
         padding: 0;
     }
     
-    .post, .post img, #desc {
+    .post, #desc {
         width: 100%;
         {block:Permalink}
         max-width: 100%;
@@ -1258,7 +1311,8 @@ display: grid;
             {block:Photos}
             <div data-width="{PhotoWidth-HighRes}" data-height="{PhotoHeight-HighRes}" data-lowres="{PhotoURL-500}" data-highres="{PhotoURL-HighRes}" onclick="lightbox(this)">
             <img src="{PhotoURL-HighRes}" />
-            </div>{/block:Photos}
+            </div>
+            {/block:Photos}
             </div>
         {/block:Photoset}
         
@@ -1627,7 +1681,10 @@ display: grid;
 	C2356.8828,203.1455,2354.8281,179.4941,2350.2393,158.1748z"/>
 </svg>
 </a>
-
+<script>
+    //cssphotosets
+    initPhotosets();
+</script>
 <script>
     let mode = "{select:Color Mode}";
     
@@ -1642,20 +1699,43 @@ display: grid;
         document.documentElement.style.setProperty('--bg-caption', '#161515');
     }
     
+
+    {block:IfTypingEffect}
+    try {
+        {block:HomePage}
+        hideAll(true);
+        console.log("happening?");
+        {/block:HomePage}
+        {block:DayPage}hideAll();{/block:DayPage}
+        {block:TagPage}hideAll();{/block:TagPage}
+        {block:PermalinkPage}hideAll();{/block:PermalinkPage}
+        {block:SearchPage} hideAll();{/block:SearchPage}
+    } catch (error) {
+        console.log(error);
+    }
+    {/block:IfTypingEffect}
+    
     $(document).ready(function () {
         {block:IfTypingEffect}
-        typeWriter();
+        try {
+            typeWriter();
+        } catch (error) {
+            console.log(error);
+            smoothEntrance();
+        }
+        
         {/block:IfTypingEffect}
-        {block:IfNotTypingEffect}
-        smoothEntrance(); 
-        {/block:IfNotTypingEffect}
+
         {block:PermalinkPage}
         $(".caption").css("display", "block");
         if(window.location.href.indexOf("/post/") === -1) {
-            $(".post-caption").hide();
+            $(".post-caption").css("opacity", 0);
+            $(".post-caption").css("display", "none");
             if(window.location.href.indexOf("/ask") !== -1) {
                 $(".post").addClass("ask-page");
             }
+        } else {
+            $(".post-caption").css("opacity", 1);
         }
         {/block:PermalinkPage}
         
@@ -1704,7 +1784,6 @@ display: grid;
              if (showModal) {
                 $("#modal_about").css({"visibility":"visible","opacity":"1","z-index":"20"});
                 $(".modal-content").css({"transform":"translateY(0px)","opacity":"1"});
-                $("#posts_list, .about").css("opacity",0);
                 setTimeout(function(){
                     $("html").css("overflow", "hidden");
                 }, 1000);
@@ -1712,67 +1791,74 @@ display: grid;
                 $("html").css("overflow", "auto");
                 $("#modal_about").css({"visibility":"hidden","opacity":"0","z-index":"-2"});
                 $(".modal-content").css({"transform":"translateY(-50vh)","opacity":"0"});
-                $("#posts_list, .about").css("opacity",1);
             }
        });
     
         //Links in modal
-        var raw = "{text:More Links}";
-        var links =raw.split(',');
-        var links_box = document.getElementById("links_box");
-    
-        for(let i=0; i<links.length; i++){
-            if(i%2 == 0){
-                links_box.innerHTML += "<li><a class='l1' target='_blank' href='"+links[i]+"' /><span class='triangle'><i class='bi bi-caret-right-fill'></i></span>"+links[i+1]+"</a></li>";
-            } 
-        }
+        try {
+            var raw = "{text:More Links}";
+            var links =raw.split(',');
+            var links_box = document.getElementById("links_box");
         
-        //Player stats content
-        {block:IfEnablePlayerStats}
-        
-        var date = new Date();
-        var date_box = document.getElementById("full-date");
-        const optionsDate = { weekday: 'short', year: 'numeric', month: 'short', day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit', timeZoneName: 'short'};
-    
-        date_box.innerHTML += date.toLocaleDateString(undefined, optionsDate);
-    
-        var gold_box = document.getElementById("gold-qty");
-        gold_box.innerHTML += "{text:Gold}"+"G";
-        
-        var raw_equipment = "{text:Equipment}";
-        var equipment = raw_equipment.split(',');
-        var ui_equipment = document.getElementById("ui-items");
-    
-        for(let i=0; i<equipment.length; i++){
-            ui_equipment.innerHTML += "<li>"+equipment[i]+"</li>";
-        }
-        
-        var stats_equipment = "{text:Stats}";
-        var stats = stats_equipment.split(',');
-        var ui_stats1 = document.getElementById("ui-stats1");
-        var ui_stats2 = document.getElementById("ui-stats2");
-        var stats_points1 = 0;
-        var stats_points2 = 0;
-        
-        for(let i=0; i<stats.length; i++){
-            let att = stats[i].split(":");
-            if(i<stats.length/2){
-                ui_stats1.innerHTML += "<dt>"+att[0]+"</dt>"+"<dd>"+att[1]+"</dd>";
-                stats_points1 += Number(att[1]);
-            } else {
-                ui_stats2.innerHTML += "<dt>"+att[0]+"</dt>"+"<dd>"+att[1]+"</dd>";
-                stats_points2 += Number(att[1]);
+            for(let i=0; i<links.length; i++){
+                if(i%2 == 0){
+                    links_box.innerHTML += "<li><a class='l1' target='_blank' href='"+links[i]+"' /><span class='triangle'><i class='bi bi-caret-right-fill'></i></span>"+links[i+1]+"</a></li>";
+                } 
             }
-        }
         
-        var stats_points = document.getElementById("stats-points");
-        stats_points.innerHTML += '<p><i class="bi bi-hammer"></i>'+stats_points1+'<i class="bi bi-shield-fill-plus"></i>'+stats_points2+'</p>';
-        {/block:IfEnablePlayerStats}
+            //Player stats content
+            {block:IfEnablePlayerStats}
+            
+            var date = new Date();
+            var date_box = document.getElementById("full-date");
+            const optionsDate = { weekday: 'short', year: 'numeric', month: 'short', day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit', timeZoneName: 'short'};
+        
+            date_box.innerHTML += date.toLocaleDateString(undefined, optionsDate);
+        
+            var gold_box = document.getElementById("gold-qty");
+            gold_box.innerHTML += "{text:Gold}"+"G";
+            
+            var raw_equipment = "{text:Equipment}";
+            var equipment = raw_equipment.split(',');
+            var ui_equipment = document.getElementById("ui-items");
+        
+            for(let i=0; i<equipment.length; i++){
+                ui_equipment.innerHTML += "<li>"+equipment[i]+"</li>";
+            }
+            
+            var stats_equipment = "{text:Stats}";
+            var stats = stats_equipment.split(',');
+            var ui_stats1 = document.getElementById("ui-stats1");
+            var ui_stats2 = document.getElementById("ui-stats2");
+            var stats_points1 = 0;
+            var stats_points2 = 0;
+            
+            for(let i=0; i<stats.length; i++){
+                let att = stats[i].split(":");
+                if(i<stats.length/2){
+                    ui_stats1.innerHTML += "<dt>"+att[0]+"</dt>"+"<dd>"+att[1]+"</dd>";
+                    stats_points1 += Number(att[1]);
+                } else {
+                    ui_stats2.innerHTML += "<dt>"+att[0]+"</dt>"+"<dd>"+att[1]+"</dd>";
+                    stats_points2 += Number(att[1]);
+                }
+            }
+            
+            var stats_points = document.getElementById("stats-points");
+            stats_points.innerHTML += '<p><i class="bi bi-hammer"></i>'+stats_points1+'<i class="bi bi-shield-fill-plus"></i>'+stats_points2+'</p>';
+            {/block:IfEnablePlayerStats}
+        } catch(error){
+            console.log(error);
+        }
         
         //scroll function
         window.onscroll = function() {
-            scrollFunction();
-            fixednav();
+            try {
+                scrollFunction();
+                fixednav();
+            } catch(error){
+                console.log(error);
+            }
         };
         
         //stick navigation
@@ -1807,7 +1893,7 @@ display: grid;
     }
     
     function typeWriter() {
-        let txt1 = "{block:Description}{Description}{/block:Description}"; 
+        let txt1 = `{block:Description}{Description}{/block:Description}`;  
         if(stopTypeWriter){
             let substring = txt1.substring(count1, txt1.length);
             document.getElementById("description_text").innerHTML+= substring;
@@ -1818,7 +1904,7 @@ display: grid;
         {block:HomePage}
             if($("#desc").hasClass("page-1")){
                 $("#desc, .stopTypewritter").css("opacity",1);
-                $("#description_text-home").css("display","none");
+                $("#description_text-home").hide();
                 if (count1 < txt1.length) {
                     document.getElementById("description_text").innerHTML += txt1.charAt(count1);
                         count1++;
@@ -1840,12 +1926,28 @@ display: grid;
     
     //faded effect
     function smoothEntrance(home) {
-        if (!home) $("#description_text-home").css("opacity",1);
-        $(".blog-title").css("opacity",1);
+        if (!home) {
+            $("#description_text").remove();
+            $("#description_text-home").css("opacity",1);
+        }
+        $(".blog-title").css("animation", "fadeIn 1.5s ease");
+        $(".blog-title").removeClass("hidden");
         $("#desc").css("opacity",1);
-        $(".subtitle").css("opacity",1);
-        $(".toplinks").css({"opacity":1, "visibility":"visible"});
-        $("#posts").css({"opacity":1, "visibility":"visible"});
+        $("#desc").removeClass("hidden");
+        $(".subtitle").css("animation", "fadeIn 1.5s ease");
+        $(".subtitle").removeClass("hidden");
+        $(".toplinks").css("animation", "fadeIn 1.5s ease");
+        $(".toplinks").removeClass("hidden");
+        $("#posts").css("animation", "fadeIn 1.5s ease");
+        $("#posts").removeClass("hidden");
+    }
+    
+    function hideAll(home){
+        if(!home) $("#desc").addClass("hidden");
+        $(".blog-title").addClass("hidden");
+        $(".subtitle").addClass("hidden");
+        $(".toplinks").addClass("hidden");
+        $("#posts").addClass("hidden");
     }
     
     function scrollFunction() {
