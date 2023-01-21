@@ -167,7 +167,7 @@ h1.blog-title {
     padding: 0;
     line-height: 50px;
     {block:IfNotTypingEffect}
-    animation: fadeIn 1s ease; 
+    animation: fadeIn 1.5s ease; 
     {/block:IfNotTypingEffect}
 }
 
@@ -180,7 +180,7 @@ h2.subtitle {
     padding: 0;
     line-height: 50px;
     {block:IfNotTypingEffect}
-    animation: fadeIn 1s ease; 
+    animation: fadeIn 1.5s ease; 
     {/block:IfNotTypingEffect}
 }
 
@@ -229,27 +229,32 @@ header {
     padding: 5px 5px 5px 15px;
     transition: 0.5s opacity ease;
     {block:IfNotTypingEffect}
-    animation: fadeIn 1s ease; 
+    animation: fadeIn 1.5s ease; 
     {/block:IfNotTypingEffect}
 }
 
 #description_text {
     {block:IfNotTypingEffect}
-    animation: fadeIn 1s ease; 
+    animation: fadeIn 1.5s ease; 
     {/block:IfNotTypingEffect}
 }
 
 #description_text, #description_text-home {
-    min-height: 28px;
+    min-height: 32px;
     max-height: 100px;
     overflow-y: auto;
 }
 
-.page-1 #description_text{
-    min-height: 0px !important;
+{block:IfTypingEffect}
+{block:HomePage}
+.page-1 #description_text {
+    min-height: 0px;
+    height: 0px;
 }
+{/block:HomePage}
+{/block:IfTypingEffect}
 
-#description_text-home {
+#description_text {
     opacity: 0;
     transition: 0.5s opacity ease;
 }
@@ -344,7 +349,7 @@ header {
     columns: 1;
     {/block:Permalink}
      {block:IfNotTypingEffect}
-    animation: fadeIn 1.3s ease; 
+    animation: fadeIn 2s ease; 
     {/block:IfNotTypingEffect}
 }
 
@@ -371,6 +376,10 @@ header {
 
 .link .exceprt {
     margin-bottom: 20px;
+}
+
+.link .post-image img, .audio .post-image img, .photo .post-image img  {
+    width: 100%;
 }
             
 .post-caption {
@@ -1234,13 +1243,13 @@ display: grid;
 </header>
 <div id="descontainer" class="navbar">
     <div id="desc" class="border-double page-{CurrentPage}">
-        <div id="description_text">
+        <div id="description_text-home">
         {block:IfNotTypingEffect}
             {block:Description}{Description}{/block:Description}
         {/block:IfNotTypingEffect}
         </div>
         {block:IfTypingEffect}
-        <div id="description_text-home">
+        <div id="description_text">
         {block:Description}{Description}{/block:Description}
         </div>
         {/block:IfTypingEffect}
@@ -1903,9 +1912,9 @@ display: grid;
         {block:HomePage}
             if($("#desc").hasClass("page-1")){
                 $("#desc, .stopTypewritter").css("opacity",1);
-                $("#description_text-home").hide();
+                $("#description_text").hide();
                 if (count1 < txt1.length) {
-                    document.getElementById("description_text").innerHTML += txt1.charAt(count1);
+                    document.getElementById("description_text-home").innerHTML += txt1.charAt(count1);
                         count1++;
                         setTimeout(typeWriter, 50);
                     } else {
@@ -1926,8 +1935,8 @@ display: grid;
     //faded effect
     function smoothEntrance(home) {
         if (!home) {
-            $("#description_text").remove();
-            $("#description_text-home").css("opacity",1);
+            $("#description_text-home").remove();
+            $("#description_text").css("opacity",1);
         }
         $(".blog-title").css("animation", "fadeIn 1.5s ease");
         $(".blog-title").removeClass("hidden");
