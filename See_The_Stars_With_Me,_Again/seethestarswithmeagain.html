@@ -2,7 +2,7 @@
 
 "See The Stars With Me, Again" 
 by @palemomos [themesbypale.tumblr.com]
-ver. 1.1 (Jan/21/2023)
+ver. 1.0 (Jan/08/2023)
 Thanks for using my theme!
 Please don't remove the credits.
 
@@ -1704,7 +1704,6 @@ display: grid;
     try {
         {block:HomePage}
         hideAll(true);
-        console.log("happening?");
         {/block:HomePage}
         {block:DayPage}hideAll();{/block:DayPage}
         {block:TagPage}hideAll();{/block:TagPage}
@@ -1727,7 +1726,7 @@ display: grid;
         {/block:IfTypingEffect}
 
         {block:PermalinkPage}
-        $(".caption").css("display", "block");
+        $(".caption").css("display", "block !important");
         if(window.location.href.indexOf("/post/") === -1) {
             $(".post-caption").css("opacity", 0);
             $(".post-caption").css("display", "none");
