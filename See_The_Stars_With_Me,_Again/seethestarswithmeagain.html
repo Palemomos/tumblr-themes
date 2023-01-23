@@ -1128,7 +1128,12 @@ display: grid;
 @media only screen and (max-width: 1366px) { 
     
     .post {
-        width: 400px;
+        width: 350px;
+        {block:Permalink}
+        max-width: 600px;
+        width: 80%;
+        display: block;
+        {/block:Permalink}
     }
 }
 
@@ -1164,6 +1169,8 @@ display: grid;
     #posts { 
         columns: 1;
         padding: 0;
+        display: flex;
+        flex-direction: column;
     }
     
     .post, #desc {
