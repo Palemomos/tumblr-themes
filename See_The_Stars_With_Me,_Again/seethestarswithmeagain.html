@@ -2,7 +2,7 @@
 
 "See The Stars With Me, Again" 
 by @palemomos [themesbypale.tumblr.com]
-ver. 1.0 (Jan/08/2023)
+ver. 1.2 (Jan/23/2023)
 Thanks for using my theme!
 Please don't remove the credits.
 
@@ -351,6 +351,9 @@ header {
      {block:IfNotTypingEffect}
     animation: fadeIn 2s ease; 
     {/block:IfNotTypingEffect}
+    {block:Permalink}
+    width: 100%;
+    {/block:Permalink}
 }
 
 .source-head, .commenter, .replier, a.asker, a.answerer {
@@ -493,6 +496,9 @@ header {
 {block:IfHideCaptions}
 .caption {
     display: none;
+    {block:PermalinkPage}
+    display: block;
+    {/block:PermalinkPage}
 }
 {/block:IfHideCaptions}
 
@@ -593,6 +599,28 @@ figure, video, iframe, .video, .video iframe, figure.tmblr-embed.tmblr-full, fig
     width: 100%;
 }
 
+{block:PermalinkPage}
+.photo img {
+    width: auto;
+    max-width: 700px;
+}
+
+.photo .post-image img {
+    width: auto !important;
+    max-width: 700px;
+}
+
+.photo .post-image {
+   width: 100%;
+   display: flex;
+   justify-content: center;
+}
+
+[photoset-layout] img {
+    width: 100%;
+}
+{/block:PermalinkPage}
+
 .post {
     width: 100%;
     display: inline-block;
@@ -601,7 +629,8 @@ figure, video, iframe, .video, .video iframe, figure.tmblr-embed.tmblr-full, fig
     margin: 0 auto;
     max-width: 500px;
     {block:Permalink}
-    max-width: 80%;
+    max-width: 700px;
+    width: 80%;
     display: block;
     {/block:Permalink}
 }
@@ -1097,13 +1126,9 @@ display: grid;
 }
 
 @media only screen and (max-width: 1366px) { 
-    #posts {
-        width: 90%;
-        margin: 0 auto;
-    }
     
-    #postes { 
-        display: block;   
+    .post {
+        width: 400px;
     }
 }
 
@@ -1904,7 +1929,7 @@ display: grid;
         let txt1 = `{block:Description}{Description}{/block:Description}`;  
         if(stopTypeWriter){
             let substring = txt1.substring(count1, txt1.length);
-            document.getElementById("description_text").innerHTML+= substring;
+            document.getElementById("description_text-home").innerHTML+= substring;
             $("#stopTypewritter").hide();
             smoothEntrance(true);
             return;
@@ -1938,6 +1963,7 @@ display: grid;
             $("#description_text-home").remove();
             $("#description_text").css("opacity",1);
         }
+        
         $(".blog-title").css("animation", "fadeIn 1.5s ease");
         $(".blog-title").removeClass("hidden");
         $("#desc").css("opacity",1);
@@ -1948,14 +1974,17 @@ display: grid;
         $(".toplinks").removeClass("hidden");
         $("#posts").css("animation", "fadeIn 1.5s ease");
         $("#posts").removeClass("hidden");
+        
     }
     
     function hideAll(home){
         if(!home) $("#desc").addClass("hidden");
+        
         $(".blog-title").addClass("hidden");
         $(".subtitle").addClass("hidden");
         $(".toplinks").addClass("hidden");
         $("#posts").addClass("hidden");
+        
     }
     
     function scrollFunction() {
